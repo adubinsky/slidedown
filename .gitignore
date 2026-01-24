@@ -9,3 +9,15 @@ log/*.log
 tmp/**
 node_modules/
 .sass-cache
+
+# Environment files
+.env
+.env.*
+
+# Output directory (generated presentations)
+output/*
+!output/.gitkeep
+
+# Input directory (user presentations, except example)
+input/*
+!input/example/

@@ -1,16 +1,17 @@
 {
-  "name": "reveal.js",
-  "version": "5.2.1",
-  "description": "The HTML Presentation Framework",
-  "homepage": "https://revealjs.com",
-  "subdomain": "revealjs",
+  "name": "slidedown",
+  "version": "1.0.0",
+  "description": "Markdown-first presentations powered by reveal.js",
+  "homepage": "https://github.com/adubinsky/slidedown",
   "main": "dist/reveal.js",
   "module": "dist/reveal.esm.js",
   "license": "MIT",
   "scripts": {
     "test": "gulp test",
     "start": "gulp serve",
-    "build": "gulp build"
+    "serve": "gulp serve",
+    "build": "gulp build",
+    "setup": "bash setup.sh"
   },
   "author": {
     "name": "Hakim El Hattab",
@@ -19,15 +20,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/hakimel/reveal.js.git"
+    "url": "git://github.com/adubinsky/slidedown.git"
   },
   "engines": {
     "node": ">=18.0.0"
   },
   "keywords": [
+    "slidedown",
     "reveal",
     "slides",
-    "presentation"
+    "presentation",
+    "markdown"
   ],
   "devDependencies": {
     "@babel/core": "^7.23.2",
