@@ -21,7 +21,7 @@ For advanced features and configuration, see the [reveal.js documentation](https
 git clone https://github.com/adubinsky/slidedown.git
 cd slidedown
 
-# Run setup
+# Run setup (installs dependencies and builds assets)
 ./setup.sh
 
 # Start the development server
@@ -32,7 +32,7 @@ Open http://localhost:8000 to see the example presentation.
 
 ---
 
-## Creating Presentations
+## Creating Presentations../
 
 ### Folder Structure
 
@@ -95,34 +95,152 @@ Add custom backgrounds and transitions with HTML comments:
 
 <!-- .slide: data-background-image="images/photo.jpg" -->
 ## Image Background
+
+<!-- .slide: data-transition="fade" -->
+## Fade Transition
 ```
+
+### Fragments (Incremental Reveal)
+
+Reveal content step by step:
+
+```markdown
+- First point <!-- .element: class="fragment" -->
+- Second point <!-- .element: class="fragment fade-up" -->
+- Third point <!-- .element: class="fragment highlight-red" -->
+```
+
+Fragment styles: `fade-in`, `fade-out`, `fade-up`, `fade-down`, `fade-left`, `fade-right`, `grow`, `shrink`, `strike`, `highlight-red`, `highlight-green`, `highlight-blue`
 
 ---
 
 ## MCP Server
 
-Slidedown includes an MCP (Model Context Protocol) server for AI-assisted slide creation.
+Slidedown includes an MCP (Model Context Protocol) server that enables AI assistants to help create and manage presentations. The MCP server provides three tools:
 
-### Setup
+| Tool | Description |
+|------|-------------|
+| `read_markdown` | Read a markdown file with Slidedown syntax documentation |
+| `build_presentation` | Build HTML presentation from markdown source |
+| `serve` | Start the development server to preview presentations |
 
-Add to your Claude Desktop or MCP client configuration:
+### Setting Up the MCP Server
+
+The MCP server is located in the `mcp-server/` directory and is automatically set up when you run `./setup.sh`.
+
+#### Claude Code (CLI)
+
+Add the following to your Claude Code MCP settings file (`~/.claude/settings.json` or project-level `.claude/settings.json`):
 
 ```json
 {
   "mcpServers": {
     "slidedown": {
       "command": "node",
-      "args": ["/path/to/slidedown/mcp-server/index.js"]
+      "args": ["/absolute/path/to/slidedown/mcp-server/index.js"]
     }
   }
 }
 ```
 
-### Available Tools
+To find the absolute path:
+```bash
+cd slidedown && echo "$(pwd)/mcp-server/index.js"
+```
 
-- **read_markdown** - Read a markdown file with syntax documentation
-- **build_presentation** - Build HTML presentation from markdown
-- **serve** - Start the development server
+After adding, restart Claude Code or run `/mcp` to verify the server is connected.
+
+#### Claude Desktop App
+
+Edit your Claude Desktop configuration file:
+
+- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+
+```json
+{
+  "mcpServers": {
+    "slidedown": {
+      "command": "node",
+      "args": ["/absolute/path/to/slidedown/mcp-server/index.js"]
+    }
+  }
+}
+```
+
+Restart Claude Desktop after saving.
+
+#### Cursor
+
+Add to your Cursor MCP settings (Settings > MCP Servers):
+
+```json
+{
+  "slidedown": {
+    "command": "node",
+    "args": ["/absolute/path/to/slidedown/mcp-server/index.js"]
+  }
+}
+```
+
+#### Windsurf
+
+Add to your Windsurf MCP configuration:
+
+```json
+{
+  "mcpServers": {
+    "slidedown": {
+      "command": "node",
+      "args": ["/absolute/path/to/slidedown/mcp-server/index.js"]
+    }
+  }
+}
+```
+
+#### Other MCP-Compatible Tools
+
+Any tool that supports the Model Context Protocol can use the Slidedown MCP server. The general configuration pattern is:
+
+```json
+{
+  "command": "node",
+  "args": ["/absolute/path/to/slidedown/mcp-server/index.js"]
+}
+```
+
+### Using the MCP Server
+
+Once configured, you can ask your AI assistant to:
+
+- **Read slides**: "Read my presentation at input/example/slides.md"
+- **Create slides**: "Create a new presentation about [topic]"
+- **Build presentations**: "Build my presentation with the dracula theme"
+- **Start the server**: "Start the slidedown server so I can preview"
+
+The AI will have access to the Slidedown syntax documentation and can help you write properly formatted slides.
+
+---
+
+## Building Presentations
+
+### Using the MCP Server
+
+Ask your AI assistant: "Build my presentation from input/my-talk/slides.md with the moon theme"
+
+### Manual Build
+
+The development server automatically serves presentations from the `input/` directory. For standalone builds:
+
+```bash
+# The MCP server's build_presentation tool creates standalone HTML in output/
+node -e "
+const build = require('./mcp-server/index.js');
+// Use the build_presentation tool programmatically
+"
+```
+
+Or simply copy your markdown file to the `output/` directory with the generated HTML template.
 
 ---
 
@@ -130,18 +248,20 @@ Add to your Claude Desktop or MCP client configuration:
 
 Slidedown includes all reveal.js themes:
 
-- `black` (default)
-- `white`
-- `league`
-- `beige`
-- `sky`
-- `night`
-- `serif`
-- `simple`
-- `solarized`
-- `blood`
-- `moon`
-- `dracula`
+| Theme | Description |
+|-------|-------------|
+| `black` | Default, dark background |
+| `white` | Light background |
+| `league` | Gray background, serif font |
+| `beige` | Cream background |
+| `sky` | Blue gradient background |
+| `night` | High contrast dark |
+| `serif` | Elegant serif fonts |
+| `simple` | Minimal white |
+| `solarized` | Solarized color scheme |
+| `blood` | Dark red accents |
+| `moon` | Dark blue background |
+| `dracula` | Dracula color scheme |
 
 ---
 
@@ -156,6 +276,65 @@ Slidedown includes all reveal.js themes:
 | `O` | Overview mode |
 | `F` | Fullscreen |
 | `Esc` | Exit overview/fullscreen |
+| `B` / `.` | Pause/blackout |
+| `?` | Show keyboard shortcuts |
+
+---
+
+## Advanced Features
+
+### PDF Export
+
+Open your presentation with `?print-pdf` appended to the URL:
+
+```
+http://localhost:8000/output/my-presentation/?print-pdf
+```
+
+Then use your browser's print function (Ctrl/Cmd + P) and save as PDF.
+
+### Speaker Notes
+
+Press `S` to open speaker view in a new window. This shows:
+- Current slide
+- Next slide preview
+- Speaker notes
+- Timer
+
+### Embedding Media
+
+```markdown
+<!-- Video -->
+<video data-autoplay src="video.mp4"></video>
+
+<!-- YouTube -->
+<iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+
+<!-- Audio -->
+<audio data-autoplay src="audio.mp3"></audio>
+```
+
+---
+
+## Troubleshooting
+
+### MCP Server Not Connecting
+
+1. Verify the path is absolute and correct
+2. Ensure Node.js is installed (`node --version`)
+3. Check MCP server dependencies are installed (`cd mcp-server && npm install`)
+4. Restart your AI tool after configuration changes
+
+### Presentations Not Loading
+
+1. Ensure the development server is running (`npm start`)
+2. Check the browser console for errors
+3. Verify your markdown syntax (use `---` for slides, not `***`)
+
+### Images Not Showing
+
+1. Place images in the `images/` subdirectory next to your `slides.md`
+2. Reference them with relative paths: `![Alt](images/photo.png)`
 
 ---
 
