@@ -2,8 +2,7 @@
 
 **Markdown-first presentations powered by [reveal.js](https://revealjs.com)**
 
-Slidedown lets you create beautiful presentations by writing Markdown. Focus on your content while reveal.js handles the rest.
-
+Slidedown helps you create beautiful presentations with your AI by converting your files into formatted Markdown for you to work on, then converting that into HTML slide shows. HTML slides are shown using the excellent reveal.js.
 ---
 
 ## Built on reveal.js
@@ -118,11 +117,11 @@ Fragment styles: `fade-in`, `fade-out`, `fade-up`, `fade-down`, `fade-left`, `fa
 
 Slidedown includes an MCP (Model Context Protocol) server that enables AI assistants to help create and manage presentations. The MCP server provides three tools:
 
-| Tool | Description |
-|------|-------------|
-| `read_markdown` | Read a markdown file with Slidedown syntax documentation |
-| `build_presentation` | Build HTML presentation from markdown source |
-| `serve` | Start the development server to preview presentations |
+| Tool                 | Description                                              |
+| -------------------- | -------------------------------------------------------- |
+| `read_markdown`      | Read a markdown file with Slidedown syntax documentation |
+| `build_presentation` | Build HTML presentation from markdown source             |
+| `serve`              | Start the development server to preview presentations    |
 
 ### Setting Up the MCP Server
 
@@ -248,36 +247,36 @@ Or simply copy your markdown file to the `output/` directory with the generated 
 
 Slidedown includes all reveal.js themes:
 
-| Theme | Description |
-|-------|-------------|
-| `black` | Default, dark background |
-| `white` | Light background |
-| `league` | Gray background, serif font |
-| `beige` | Cream background |
-| `sky` | Blue gradient background |
-| `night` | High contrast dark |
-| `serif` | Elegant serif fonts |
-| `simple` | Minimal white |
-| `solarized` | Solarized color scheme |
-| `blood` | Dark red accents |
-| `moon` | Dark blue background |
-| `dracula` | Dracula color scheme |
+| Theme       | Description                 |
+| ----------- | --------------------------- |
+| `black`     | Default, dark background    |
+| `white`     | Light background            |
+| `league`    | Gray background, serif font |
+| `beige`     | Cream background            |
+| `sky`       | Blue gradient background    |
+| `night`     | High contrast dark          |
+| `serif`     | Elegant serif fonts         |
+| `simple`    | Minimal white               |
+| `solarized` | Solarized color scheme      |
+| `blood`     | Dark red accents            |
+| `moon`      | Dark blue background        |
+| `dracula`   | Dracula color scheme        |
 
 ---
 
 ## Keyboard Shortcuts
 
-| Key | Action |
-|-----|--------|
-| `→` / `Space` | Next slide |
-| `←` | Previous slide |
-| `↑` / `↓` | Navigate vertical slides |
-| `S` | Speaker notes view |
-| `O` | Overview mode |
-| `F` | Fullscreen |
-| `Esc` | Exit overview/fullscreen |
-| `B` / `.` | Pause/blackout |
-| `?` | Show keyboard shortcuts |
+| Key           | Action                   |
+| ------------- | ------------------------ |
+| `→` / `Space` | Next slide               |
+| `←`           | Previous slide           |
+| `↑` / `↓`     | Navigate vertical slides |
+| `S`           | Speaker notes view       |
+| `O`           | Overview mode            |
+| `F`           | Fullscreen               |
+| `Esc`         | Exit overview/fullscreen |
+| `B` / `.`     | Pause/blackout           |
+| `?`           | Show keyboard shortcuts  |
 
 ---
 
@@ -343,6 +342,6 @@ Press `S` to open speaker view in a new window. This shows:
 MIT License
 
 Copyright (c) 2011-2024 Hakim El Hattab (reveal.js)
-Copyright (c) 2024 Alex Dubinsky (Slidedown modifications)
+Copyright (c) 2026 Andrew Dubinsky (Slidedown)
 
 See [LICENSE](LICENSE) for details.
