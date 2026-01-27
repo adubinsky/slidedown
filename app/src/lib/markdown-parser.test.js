@@ -249,6 +249,59 @@ Note: This is a speaker note`;
     assert(slides.length === 0, 'Should return empty array');
   });
 
+  // Test 12: Slide attributes
+  test('Parse slide attributes', () => {
+    const markdown = `<!-- .slide: data-background="#667eea" data-transition="fade" -->
+
+# Colored Slide
+
+Content here`;
+
+    const slides = parseMarkdown(markdown);
+    assert(slides.length === 1, 'Should parse slide');
+    assert(slides[0].attributes, 'Should have attributes');
+    assert(slides[0].attributes.background === '#667eea', 'Should parse background color');
+    assert(slides[0].attributes.transition === 'fade', 'Should parse transition');
+  });
+
+  // Test 13: Fragment parsing
+  test('Parse fragments', () => {
+    const markdown = `# Fragments
+
+- First <!-- .element: class="fragment" -->
+- Second <!-- .element: class="fragment fade-up" -->
+- Third <!-- .element: class="fragment" data-fragment-index="0" -->`;
+
+    const slides = parseMarkdown(markdown);
+    assert(slides.length === 1, 'Should parse slide');
+    assert(slides[0].fragments, 'Should have fragments array');
+    assert(slides[0].fragments.length === 3, `Should find 3 fragments, found ${slides[0].fragments.length}`);
+    assert(slides[0].fragments[0].type === 'fade-in', 'First fragment should be fade-in');
+    assert(slides[0].fragments[1].type === 'fade-up', 'Second fragment should be fade-up');
+  });
+
+  // Test 14: Fragment index initialization
+  test('Fragments start hidden', () => {
+    const markdown = `# Test
+
+- Fragment 1 <!-- .element: class="fragment" -->
+- Fragment 2 <!-- .element: class="fragment" -->`;
+
+    const slides = parseMarkdown(markdown);
+    assert(slides[0].currentFragmentIndex === -1, 'Fragment index should start at -1');
+  });
+
+  // Test 15: Multiple attributes on one slide
+  test('Parse multiple slide attributes', () => {
+    const markdown = `<!-- .slide: data-background-color="#3b82f6" data-background-opacity="0.8" -->
+
+# Multi-Attribute Slide`;
+
+    const slides = parseMarkdown(markdown);
+    assert(slides[0].attributes.backgroundColor === '#3b82f6', 'Should parse background color');
+    assert(slides[0].attributes.backgroundOpacity === 0.8, 'Should parse opacity as number');
+  });
+
   // Summary
   console.log('\n' + '='.repeat(50));
   console.log(`Test Results: ${results.passed} passed, ${results.failed} failed`);

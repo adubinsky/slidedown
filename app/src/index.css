@@ -194,7 +194,11 @@
 
   /* Horizontal rules */
   .slide-content hr {
-    @apply my-8 border-t-2 border-gray-700;
+    @apply my-8;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #6b7280, transparent);
+    border: none;
+    opacity: 1;
   }
 
   /* Task lists (checkboxes) */
@@ -205,6 +209,24 @@
 
   .slide-content input[type="checkbox"]:checked {
     @apply bg-blue-500 border-blue-500;
+  }
+
+  /* Definition lists */
+  .slide-content dl {
+    @apply my-6;
+  }
+
+  .slide-content dt {
+    @apply font-bold text-2xl text-white mb-2;
+  }
+
+  .slide-content dd {
+    @apply ml-8 mb-4 text-xl text-gray-300;
+    @apply border-l-2 border-blue-500 pl-4;
+  }
+
+  .slide-content dd:before {
+    content: '';
   }
 
   /* ============================================
@@ -338,5 +360,133 @@
   .error-box {
     @apply bg-red-500 bg-opacity-20 border-l-4 border-red-500;
     @apply px-6 py-4 rounded-r-lg;
+  }
+
+  /* ============================================
+     FRAGMENT ANIMATIONS
+     ============================================ */
+
+  /* Base fragment styles */
+  .fragment {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  /* Hidden state */
+  .fragment-hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  /* Visible state */
+  .fragment-visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Fade in animation */
+  .fragment-fade-in.fragment-hidden {
+    opacity: 0;
+  }
+
+  .fragment-fade-in.fragment-visible {
+    opacity: 1;
+  }
+
+  /* Fade up animation */
+  .fragment-fade-up.fragment-hidden {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .fragment-fade-up.fragment-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Fade down animation */
+  .fragment-fade-down.fragment-hidden {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  .fragment-fade-down.fragment-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Fade left animation */
+  .fragment-fade-left.fragment-hidden {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  .fragment-fade-left.fragment-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Fade right animation */
+  .fragment-fade-right.fragment-hidden {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  .fragment-fade-right.fragment-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Grow animation */
+  .fragment-grow.fragment-hidden {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  .fragment-grow.fragment-visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Shrink animation */
+  .fragment-shrink.fragment-hidden {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+
+  .fragment-shrink.fragment-visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Strike animation */
+  .fragment-strike.fragment-visible {
+    text-decoration: line-through;
+    text-decoration-color: #ef4444;
+    text-decoration-thickness: 2px;
+  }
+
+  /* Highlight animations */
+  .fragment-highlight-red.fragment-visible {
+    background-color: rgba(239, 68, 68, 0.3);
+    @apply px-2 py-1 rounded;
+  }
+
+  .fragment-highlight-blue.fragment-visible {
+    background-color: rgba(59, 130, 246, 0.3);
+    @apply px-2 py-1 rounded;
+  }
+
+  .fragment-highlight-green.fragment-visible {
+    background-color: rgba(34, 197, 94, 0.3);
+    @apply px-2 py-1 rounded;
+  }
+
+  /* Fade out animation */
+  .fragment-fade-out.fragment-hidden {
+    opacity: 1;
+  }
+
+  .fragment-fade-out.fragment-visible {
+    opacity: 0;
   }
 }

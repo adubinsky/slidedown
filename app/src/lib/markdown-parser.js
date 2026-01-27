@@ -20,12 +20,15 @@ export function parseMarkdown(markdown) {
     if (verticalSlides.length > 1) {
       // Has vertical slides
       const verticalGroup = verticalSlides.map((vSlide, vIndex) => {
-        const { content, notes, title } = extractSlideMetadata(vSlide.trim());
+        const { content, notes, title, attributes, fragments } = extractSlideMetadata(vSlide.trim());
         return {
           id: slideId++,
           content,
           notes,
           title,
+          attributes,
+          fragments,
+          currentFragmentIndex: -1,
           horizontal: hIndex,
           vertical: vIndex,
         };
@@ -33,12 +36,15 @@ export function parseMarkdown(markdown) {
       slides.push(...verticalGroup);
     } else {
       // Single slide (no verticals)
-      const { content, notes, title } = extractSlideMetadata(hSlide.trim());
+      const { content, notes, title, attributes, fragments } = extractSlideMetadata(hSlide.trim());
       slides.push({
         id: slideId++,
         content,
         notes,
         title,
+        attributes,
+        fragments,
+        currentFragmentIndex: -1,
         horizontal: hIndex,
         vertical: 0,
       });
@@ -49,9 +55,15 @@ export function parseMarkdown(markdown) {
 }
 
 /**
- * Extract slide metadata (title, speaker notes)
+ * Extract slide metadata (title, speaker notes, attributes, fragments)
  */
 function extractSlideMetadata(content) {
+  // Extract slide attributes (<!-- .slide: data-background="#667eea" -->)
+  const attributes = extractSlideAttributes(content);
+
+  // Extract fragments (<!-- .element: class="fragment" -->)
+  const fragments = extractFragments(content);
+
   // Extract speaker notes (Note: ...)
   let notes = '';
   const noteMatch = content.match(/\nNote:\s*(.+?)(?=\n#|\n---|$)/s);
@@ -67,7 +79,113 @@ function extractSlideMetadata(content) {
     title = titleMatch[1].trim();
   }
 
-  return { content, notes, title };
+  return { content, notes, title, attributes, fragments };
+}
+
+/**
+ * Extract slide attributes from HTML comments
+ * Example: <!-- .slide: data-background="#667eea" data-transition="fade" -->
+ */
+function extractSlideAttributes(content) {
+  const attributes = {};
+  const attrRegex = /<!--\s*\.slide:\s*([^>]+)\s*-->/;
+  const match = content.match(attrRegex);
+
+  if (!match) return attributes;
+
+  const attrString = match[1];
+
+  // Parse data-background (color or image URL)
+  const bgMatch = attrString.match(/data-background="([^"]+)"/);
+  if (bgMatch) {
+    attributes.background = bgMatch[1];
+  }
+
+  // Parse data-background-color
+  const bgColorMatch = attrString.match(/data-background-color="([^"]+)"/);
+  if (bgColorMatch) {
+    attributes.backgroundColor = bgColorMatch[1];
+  }
+
+  // Parse data-background-image
+  const bgImageMatch = attrString.match(/data-background-image="([^"]+)"/);
+  if (bgImageMatch) {
+    attributes.background = bgImageMatch[1];
+  }
+
+  // Parse data-background-size
+  const bgSizeMatch = attrString.match(/data-background-size="([^"]+)"/);
+  if (bgSizeMatch) {
+    attributes.backgroundSize = bgSizeMatch[1];
+  }
+
+  // Parse data-background-position
+  const bgPosMatch = attrString.match(/data-background-position="([^"]+)"/);
+  if (bgPosMatch) {
+    attributes.backgroundPosition = bgPosMatch[1];
+  }
+
+  // Parse data-background-opacity
+  const bgOpacityMatch = attrString.match(/data-background-opacity="([^"]+)"/);
+  if (bgOpacityMatch) {
+    attributes.backgroundOpacity = parseFloat(bgOpacityMatch[1]);
+  }
+
+  // Parse data-transition
+  const transitionMatch = attrString.match(/data-transition="([^"]+)"/);
+  if (transitionMatch) {
+    attributes.transition = transitionMatch[1];
+  }
+
+  // Parse data-auto-animate
+  if (attrString.includes('data-auto-animate')) {
+    attributes.autoAnimate = true;
+  }
+
+  return attributes;
+}
+
+/**
+ * Extract fragments from content
+ * Example: - Item <!-- .element: class="fragment fade-in" -->
+ */
+function extractFragments(content) {
+  const fragments = [];
+  const fragmentRegex = /<!--\s*\.element:\s*class="fragment([^"]*)"\s*(?:data-fragment-index="(\d+)")?\s*-->/g;
+
+  let match;
+  let index = 0;
+  while ((match = fragmentRegex.exec(content)) !== null) {
+    const classes = match[1].trim();
+    const fragmentIndex = match[2] ? parseInt(match[2]) : index;
+
+    // Parse animation type from classes
+    let animationType = 'fade-in'; // default
+    if (classes.includes('fade-out')) animationType = 'fade-out';
+    else if (classes.includes('fade-up')) animationType = 'fade-up';
+    else if (classes.includes('fade-down')) animationType = 'fade-down';
+    else if (classes.includes('fade-left')) animationType = 'fade-left';
+    else if (classes.includes('fade-right')) animationType = 'fade-right';
+    else if (classes.includes('grow')) animationType = 'grow';
+    else if (classes.includes('shrink')) animationType = 'shrink';
+    else if (classes.includes('strike')) animationType = 'strike';
+    else if (classes.includes('highlight-red')) animationType = 'highlight-red';
+    else if (classes.includes('highlight-blue')) animationType = 'highlight-blue';
+    else if (classes.includes('highlight-green')) animationType = 'highlight-green';
+
+    fragments.push({
+      index: fragmentIndex,
+      type: animationType,
+      position: match.index,
+    });
+
+    index++;
+  }
+
+  // Sort fragments by index
+  fragments.sort((a, b) => a.index - b.index);
+
+  return fragments;
 }
 
 /**

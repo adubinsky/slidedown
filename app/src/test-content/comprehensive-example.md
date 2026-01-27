@@ -75,7 +75,7 @@ https://auto-linked-url.com
 
 ## Images
 
-![Placeholder Image](https://via.placeholder.com/600x400/3b82f6/ffffff?text=Slidedown+v2)
+![Placeholder Image](https://placehold.co/800x400/3b82f6/ffffff?text=Slidedown+v2)
 
 *Caption text below image*
 

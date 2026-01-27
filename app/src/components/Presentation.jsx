@@ -21,8 +21,27 @@ export default function Presentation({ markdown }) {
     }
   }, [markdown]);
 
-  // Navigate to next slide
+  // Navigate to next slide or fragment
   const nextSlide = useCallback(() => {
+    const currentSlide = slides[currentIndex];
+
+    // Check if current slide has fragments to reveal
+    if (currentSlide?.fragments && currentSlide.fragments.length > 0) {
+      const nextFragmentIndex = currentSlide.currentFragmentIndex + 1;
+
+      // If there are more fragments to show
+      if (nextFragmentIndex < currentSlide.fragments.length) {
+        const updatedSlides = [...slides];
+        updatedSlides[currentIndex] = {
+          ...currentSlide,
+          currentFragmentIndex: nextFragmentIndex,
+        };
+        setSlides(updatedSlides);
+        return;
+      }
+    }
+
+    // No more fragments, go to next slide
     const next = getNextSlide(slides, currentIndex);
     if (next) {
       setDirection(1);
@@ -30,8 +49,22 @@ export default function Presentation({ markdown }) {
     }
   }, [slides, currentIndex]);
 
-  // Navigate to previous slide
+  // Navigate to previous slide or fragment
   const previousSlide = useCallback(() => {
+    const currentSlide = slides[currentIndex];
+
+    // Check if current slide has fragments that were revealed
+    if (currentSlide?.fragments && currentSlide.currentFragmentIndex >= 0) {
+      const updatedSlides = [...slides];
+      updatedSlides[currentIndex] = {
+        ...currentSlide,
+        currentFragmentIndex: currentSlide.currentFragmentIndex - 1,
+      };
+      setSlides(updatedSlides);
+      return;
+    }
+
+    // No fragments to hide, go to previous slide
     const prev = getPreviousSlide(slides, currentIndex);
     if (prev) {
       setDirection(-1);
@@ -124,6 +157,9 @@ export default function Presentation({ markdown }) {
             content={currentSlide.content}
             isActive={true}
             direction={direction}
+            attributes={currentSlide.attributes || {}}
+            fragments={currentSlide.fragments || []}
+            currentFragmentIndex={currentSlide.currentFragmentIndex ?? -1}
           />
         </AnimatePresence>
 
