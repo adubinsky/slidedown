@@ -12,73 +12,331 @@
   body {
     @apply overflow-hidden;
   }
+
+  /* Better font rendering */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
 
 @layer components {
-  /* Slide content styling */
+  /* ============================================
+     SLIDE CONTENT STYLES - Style Guide Enforced
+     ============================================ */
+
+  .slide-content {
+    @apply w-full h-full;
+  }
+
+  /* Headings with proper hierarchy */
   .slide-content h1 {
-    @apply text-5xl font-bold mb-6;
+    @apply text-6xl md:text-7xl font-extrabold mb-8 leading-tight tracking-tight;
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500;
   }
 
   .slide-content h2 {
-    @apply text-4xl font-semibold mb-5;
+    @apply text-5xl md:text-6xl font-bold mb-6 leading-tight tracking-tight;
+    @apply text-white;
   }
 
   .slide-content h3 {
-    @apply text-3xl font-semibold mb-4;
+    @apply text-4xl md:text-5xl font-semibold mb-5 leading-snug;
+    @apply text-gray-100;
   }
 
   .slide-content h4 {
-    @apply text-2xl font-medium mb-3;
+    @apply text-3xl md:text-4xl font-semibold mb-4 leading-snug;
+    @apply text-gray-100;
   }
 
+  .slide-content h5 {
+    @apply text-2xl md:text-3xl font-semibold mb-3 leading-normal;
+    @apply text-gray-200;
+  }
+
+  .slide-content h6 {
+    @apply text-xl md:text-2xl font-semibold mb-2 leading-normal;
+    @apply text-gray-200;
+  }
+
+  /* Paragraphs with optimal reading */
   .slide-content p {
-    @apply text-xl mb-4 leading-relaxed;
+    @apply text-2xl md:text-3xl mb-6 leading-relaxed;
+    @apply text-gray-100;
+    @apply max-w-4xl;
   }
 
+  /* Strong and emphasis */
+  .slide-content strong {
+    @apply font-bold text-white;
+  }
+
+  .slide-content em {
+    @apply italic text-blue-300;
+  }
+
+  /* Lists with better spacing */
   .slide-content ul,
   .slide-content ol {
-    @apply text-xl mb-4 ml-8;
+    @apply text-2xl md:text-3xl mb-6 leading-relaxed;
+    @apply space-y-3;
   }
 
-  .slide-content li {
-    @apply mb-2;
+  .slide-content ul {
+    @apply list-none pl-0;
   }
 
-  .slide-content code {
-    @apply bg-gray-800 text-gray-100 px-2 py-1 rounded text-base font-mono;
+  .slide-content ul > li {
+    @apply relative pl-8 mb-3;
   }
 
+  .slide-content ul > li::before {
+    content: '→';
+    @apply absolute left-0 text-blue-400 font-bold;
+  }
+
+  .slide-content ol {
+    @apply list-none counter-reset-item;
+    counter-reset: item;
+  }
+
+  .slide-content ol > li {
+    @apply relative pl-10 mb-3;
+    counter-increment: item;
+  }
+
+  .slide-content ol > li::before {
+    content: counter(item) '.';
+    @apply absolute left-0 text-blue-400 font-bold text-xl;
+  }
+
+  /* Nested lists */
+  .slide-content ul ul,
+  .slide-content ol ul,
+  .slide-content ul ol,
+  .slide-content ol ol {
+    @apply mt-3 ml-6 text-xl;
+  }
+
+  /* Code blocks with syntax highlighting */
   .slide-content pre {
-    @apply bg-gray-900 p-4 rounded-lg mb-4 overflow-x-auto;
+    @apply bg-gray-900 rounded-xl p-6 mb-6 overflow-x-auto;
+    @apply border border-gray-700 shadow-2xl;
   }
 
   .slide-content pre code {
-    @apply bg-transparent p-0;
+    @apply bg-transparent p-0 text-lg md:text-xl font-mono;
+    @apply text-gray-100 leading-relaxed;
   }
 
+  /* Inline code */
+  .slide-content code {
+    @apply bg-blue-900 bg-opacity-50 text-blue-200;
+    @apply px-2 py-1 rounded text-lg md:text-xl font-mono;
+    @apply border border-blue-700;
+  }
+
+  /* Blockquotes with style */
   .slide-content blockquote {
-    @apply border-l-4 border-blue-500 pl-4 italic my-4;
+    @apply border-l-4 border-blue-500 pl-6 pr-6 py-4 my-6;
+    @apply bg-gray-800 bg-opacity-50 rounded-r-lg;
+    @apply italic text-2xl md:text-3xl text-gray-300;
   }
 
+  .slide-content blockquote p {
+    @apply mb-0;
+  }
+
+  /* Links with hover effects */
   .slide-content a {
-    @apply text-blue-500 hover:text-blue-600 underline;
+    @apply text-blue-400 hover:text-blue-300;
+    @apply underline decoration-2 underline-offset-4;
+    @apply transition-colors duration-200;
   }
 
+  .slide-content a:hover {
+    @apply decoration-blue-400;
+  }
+
+  /* Images responsive and centered */
   .slide-content img {
-    @apply max-w-full h-auto mx-auto my-4;
+    @apply max-w-full h-auto mx-auto my-6 rounded-lg shadow-2xl;
   }
 
+  /* Tables with modern styling */
   .slide-content table {
-    @apply w-full border-collapse mb-4;
+    @apply w-full border-collapse mb-6 text-xl md:text-2xl;
+    @apply bg-gray-800 bg-opacity-50 rounded-lg overflow-hidden;
   }
 
-  .slide-content th,
-  .slide-content td {
-    @apply border border-gray-300 px-4 py-2 text-left;
+  .slide-content thead {
+    @apply bg-gray-700;
   }
 
   .slide-content th {
-    @apply bg-gray-100 font-semibold;
+    @apply px-6 py-4 text-left font-bold text-white;
+    @apply border-b-2 border-gray-600;
+  }
+
+  .slide-content td {
+    @apply px-6 py-4 text-gray-200;
+    @apply border-b border-gray-700;
+  }
+
+  .slide-content tbody tr:hover {
+    @apply bg-gray-700 bg-opacity-30;
+  }
+
+  .slide-content tbody tr:last-child td {
+    @apply border-b-0;
+  }
+
+  /* Horizontal rules */
+  .slide-content hr {
+    @apply my-8 border-t-2 border-gray-700;
+  }
+
+  /* Task lists (checkboxes) */
+  .slide-content input[type="checkbox"] {
+    @apply w-6 h-6 mr-3 rounded;
+    @apply border-2 border-gray-600;
+  }
+
+  .slide-content input[type="checkbox"]:checked {
+    @apply bg-blue-500 border-blue-500;
+  }
+
+  /* ============================================
+     LAYOUT UTILITIES
+     ============================================ */
+
+  /* Centered layout (default) */
+  .slide-layout-center {
+    @apply flex flex-col items-center justify-center text-center;
+    @apply min-h-screen px-16 py-12;
+  }
+
+  /* Left-aligned content layout */
+  .slide-layout-left {
+    @apply flex flex-col items-start justify-center;
+    @apply min-h-screen px-16 py-12 max-w-5xl mx-auto;
+  }
+
+  /* Two-column layout */
+  .slide-layout-two-column {
+    @apply grid grid-cols-2 gap-12 items-center;
+    @apply min-h-screen px-16 py-12;
+  }
+
+  /* Full-bleed image layout */
+  .slide-layout-image {
+    @apply flex flex-col items-center justify-center;
+    @apply min-h-screen p-8;
+  }
+
+  /* ============================================
+     ANIMATION UTILITIES
+     ============================================ */
+
+  /* Fade in animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  /* Slide in from bottom */
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(60px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slide-up {
+    animation: slideInUp 0.6s ease-out;
+  }
+
+  /* Scale in */
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.5s ease-out;
+  }
+
+  /* Pulse effect */
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  /* ============================================
+     UTILITY CLASSES
+     ============================================ */
+
+  /* Text gradient effect */
+  .text-gradient {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500;
+  }
+
+  /* Glass morphism effect */
+  .glass {
+    @apply bg-white bg-opacity-10 backdrop-blur-lg;
+    @apply border border-white border-opacity-20;
+  }
+
+  /* Highlight box */
+  .highlight-box {
+    @apply bg-blue-500 bg-opacity-20 border-l-4 border-blue-500;
+    @apply px-6 py-4 rounded-r-lg;
+  }
+
+  /* Warning box */
+  .warning-box {
+    @apply bg-yellow-500 bg-opacity-20 border-l-4 border-yellow-500;
+    @apply px-6 py-4 rounded-r-lg;
+  }
+
+  /* Success box */
+  .success-box {
+    @apply bg-green-500 bg-opacity-20 border-l-4 border-green-500;
+    @apply px-6 py-4 rounded-r-lg;
+  }
+
+  /* Error box */
+  .error-box {
+    @apply bg-red-500 bg-opacity-20 border-l-4 border-red-500;
+    @apply px-6 py-4 rounded-r-lg;
   }
 }

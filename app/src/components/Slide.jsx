@@ -7,16 +7,19 @@ import 'highlight.js/styles/monokai.css';
 
 const slideVariants = {
   enter: (direction) => ({
-    x: direction > 0 ? 1000 : -1000,
+    y: direction > 0 ? 1000 : -1000,
     opacity: 0,
+    scale: 0.95,
   }),
   center: {
-    x: 0,
+    y: 0,
     opacity: 1,
+    scale: 1,
   },
   exit: (direction) => ({
-    x: direction < 0 ? 1000 : -1000,
+    y: direction < 0 ? 1000 : -1000,
     opacity: 0,
+    scale: 0.95,
   }),
 };
 
@@ -31,8 +34,9 @@ export default function Slide({ content, isActive, direction = 0 }) {
       animate="center"
       exit="exit"
       transition={{
-        x: { type: 'spring', stiffness: 300, damping: 30 },
-        opacity: { duration: 0.2 },
+        y: { type: 'spring', stiffness: 200, damping: 25 },
+        opacity: { duration: 0.3 },
+        scale: { duration: 0.3 },
       }}
       className="absolute inset-0 flex items-center justify-center p-16"
     >

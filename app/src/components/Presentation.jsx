@@ -44,7 +44,7 @@ export default function Presentation({ markdown }) {
     if (index >= 0 && index < slides.length) {
       setDirection(index > currentIndex ? 1 : -1);
       setCurrentIndex(index);
-      setShowTOC(false);
+      // Keep TOC open when navigating
     }
   }, [slides.length, currentIndex]);
 

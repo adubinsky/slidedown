@@ -69,7 +69,10 @@ export default function Navigation({ currentIndex, totalSlides, onNext, onPrevio
       {/* Keyboard shortcuts hint */}
       <div className="absolute top-4 right-4 bg-gray-800 bg-opacity-50 px-3 py-2 rounded text-xs opacity-50 hover:opacity-100 transition-opacity">
         <div className="font-mono">
-          <span className="inline-block w-16">← →</span> Navigate
+          <span className="inline-block w-16">↑ ↓</span> Navigate
+        </div>
+        <div className="font-mono">
+          <span className="inline-block w-16">Space</span> Next
         </div>
         <div className="font-mono">
           <span className="inline-block w-16">T</span> TOC
