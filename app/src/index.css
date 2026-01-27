@@ -97,7 +97,7 @@
   }
 
   .slide-content ol {
-    @apply list-none counter-reset-item;
+    @apply list-none;
     counter-reset: item;
   }
 
