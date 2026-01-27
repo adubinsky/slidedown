@@ -106,46 +106,48 @@ export default function Presentation({ markdown }) {
   const progress = ((currentIndex + 1) / slides.length) * 100;
 
   return (
-    <div className="relative h-full w-full bg-gradient-to-br from-gray-900 to-gray-800 text-white overflow-hidden">
-      {/* Main slide area */}
-      <AnimatePresence initial={false} custom={direction}>
-        <Slide
-          key={currentSlide.id}
-          content={currentSlide.content}
-          isActive={true}
-          direction={direction}
-        />
-      </AnimatePresence>
-
-      {/* Navigation controls */}
-      <Navigation
-        currentIndex={currentIndex}
-        totalSlides={slides.length}
-        onNext={nextSlide}
-        onPrevious={previousSlide}
-        onToggleTOC={() => setShowTOC(!showTOC)}
-      />
-
-      {/* Progress bar */}
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-700">
-        <div
-          className="h-full bg-blue-500 transition-all duration-300"
-          style={{ width: `${progress}%` }}
-        />
-      </div>
-
-      {/* Table of Contents */}
+    <div className="flex h-full w-full bg-gradient-to-br from-gray-900 to-gray-800 text-white overflow-hidden">
+      {/* Table of Contents - Left Side */}
       <TOC
         toc={toc}
         currentIndex={currentIndex}
         isOpen={showTOC}
-        onClose={() => setShowTOC(false)}
         onSelectSlide={goToSlide}
       />
 
-      {/* Slide counter */}
-      <div className="absolute bottom-6 right-6 bg-gray-800 bg-opacity-75 px-4 py-2 rounded text-sm">
-        {currentIndex + 1} / {slides.length}
+      {/* Main content area - Right Side */}
+      <div className="relative flex-1 h-full overflow-hidden">
+        {/* Main slide area */}
+        <AnimatePresence initial={false} custom={direction}>
+          <Slide
+            key={currentSlide.id}
+            content={currentSlide.content}
+            isActive={true}
+            direction={direction}
+          />
+        </AnimatePresence>
+
+        {/* Navigation controls */}
+        <Navigation
+          currentIndex={currentIndex}
+          totalSlides={slides.length}
+          onNext={nextSlide}
+          onPrevious={previousSlide}
+          onToggleTOC={() => setShowTOC(!showTOC)}
+        />
+
+        {/* Progress bar */}
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-700">
+          <div
+            className="h-full bg-blue-500 transition-all duration-300"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+
+        {/* Slide counter */}
+        <div className="absolute bottom-6 right-6 bg-gray-800 bg-opacity-75 px-4 py-2 rounded text-sm z-20">
+          {currentIndex + 1} / {slides.length}
+        </div>
       </div>
     </div>
   );

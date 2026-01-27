@@ -38,9 +38,9 @@ export default function Slide({ content, isActive, direction = 0 }) {
         opacity: { duration: 0.3 },
         scale: { duration: 0.3 },
       }}
-      className="absolute inset-0 flex items-center justify-center p-16"
+      className="absolute inset-0 flex items-center justify-center p-16 overflow-auto"
     >
-      <div className="slide-content max-w-5xl w-full text-center">
+      <div className="slide-content max-w-5xl w-full">
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           rehypePlugins={[rehypeHighlight, rehypeRaw]}
