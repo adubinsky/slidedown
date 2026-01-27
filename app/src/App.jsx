@@ -117,8 +117,21 @@ export default function App() {
     // Check if markdown is provided via URL parameter or will be loaded
     const urlParams = new URLSearchParams(window.location.search);
     const mdParam = urlParams.get('md');
+    const testMode = urlParams.get('test');
 
-    if (mdParam) {
+    // Load comprehensive test if ?test=comprehensive
+    if (testMode === 'comprehensive') {
+      fetch('/src/test-content/comprehensive-example.md')
+        .then(response => response.text())
+        .then(text => {
+          setMarkdown(text);
+          setIsLoading(false);
+        })
+        .catch(error => {
+          console.error('Failed to load comprehensive test:', error);
+          setIsLoading(false);
+        });
+    } else if (mdParam) {
       // In future, fetch markdown from URL
       // For now, use sample
       setIsLoading(false);
