@@ -3,6 +3,20 @@
 **Markdown-first presentations powered by [reveal.js](https://revealjs.com)**
 
 Slidedown helps you create beautiful presentations with your AI by converting your files into formatted Markdown for you to work on, then converting that into HTML slide shows. HTML slides are shown using the excellent reveal.js.
+
+## Quick Install
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/adubinsky/slidedown/main/install.sh | bash
+```
+
+Then create presentations from anywhere:
+
+```bash
+slidedown build slides.md my-presentation moon
+slidedown validate slides.md
+```
+
 ---
 
 ## Built on reveal.js
@@ -13,7 +27,20 @@ For advanced features and configuration, see the [reveal.js documentation](https
 
 ---
 
-## Quick Start
+## Installation
+
+### Automatic Install (Recommended)
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/adubinsky/slidedown/main/install.sh | bash
+```
+
+This will:
+- Install slidedown to `~/.slidedown`
+- Add the `slidedown` command to your PATH
+- Set up all dependencies
+
+### Manual Install
 
 ```bash
 # Clone the repository
@@ -23,11 +50,42 @@ cd slidedown
 # Run setup (installs dependencies and builds assets)
 ./setup.sh
 
-# Start the development server
-npm start
+# Install the CLI globally
+./install.sh
 ```
 
-Open http://localhost:8000 to see the example presentation.
+### Uninstall
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/adubinsky/slidedown/main/uninstall.sh | bash
+```
+
+Or if installed locally: `./uninstall.sh`
+
+---
+
+## Quick Start
+
+Once installed, you can use slidedown from anywhere:
+
+```bash
+# Create a presentation directory
+mkdir -p ~/presentations/my-talk
+cd ~/presentations/my-talk
+
+# Create your slides
+echo "# My Presentation" > slides.md
+echo "---" >> slides.md
+echo "## First Slide" >> slides.md
+
+# Build the presentation
+slidedown build slides.md my-talk moon
+
+# Start the preview server (from slidedown directory)
+cd ~/.slidedown && npm start
+```
+
+Open http://localhost:8000/output/my-talk/ to see your presentation.
 
 ---
 
@@ -136,15 +194,17 @@ Add the following to your Claude Code MCP settings file (`~/.claude/settings.jso
   "mcpServers": {
     "slidedown": {
       "command": "node",
-      "args": ["/absolute/path/to/slidedown/mcp-server/index.js"]
+      "args": ["/Users/YOUR_USERNAME/.slidedown/mcp-server/index.js"]
     }
   }
 }
 ```
 
+**Note**: Replace `YOUR_USERNAME` with your actual username, or use the full path to your slidedown installation.
+
 To find the absolute path:
 ```bash
-cd slidedown && echo "$(pwd)/mcp-server/index.js"
+echo "$HOME/.slidedown/mcp-server/index.js"
 ```
 
 After adding, restart Claude Code or run `/mcp` to verify the server is connected.
@@ -161,11 +221,13 @@ Edit your Claude Desktop configuration file:
   "mcpServers": {
     "slidedown": {
       "command": "node",
-      "args": ["/absolute/path/to/slidedown/mcp-server/index.js"]
+      "args": ["/Users/YOUR_USERNAME/.slidedown/mcp-server/index.js"]
     }
   }
 }
 ```
+
+**Note**: Replace `YOUR_USERNAME` with your actual username.
 
 Restart Claude Desktop after saving.
 
@@ -177,7 +239,7 @@ Add to your Cursor MCP settings (Settings > MCP Servers):
 {
   "slidedown": {
     "command": "node",
-    "args": ["/absolute/path/to/slidedown/mcp-server/index.js"]
+    "args": ["/Users/YOUR_USERNAME/.slidedown/mcp-server/index.js"]
   }
 }
 ```
@@ -191,7 +253,7 @@ Add to your Windsurf MCP configuration:
   "mcpServers": {
     "slidedown": {
       "command": "node",
-      "args": ["/absolute/path/to/slidedown/mcp-server/index.js"]
+      "args": ["/Users/YOUR_USERNAME/.slidedown/mcp-server/index.js"]
     }
   }
 }
@@ -204,9 +266,11 @@ Any tool that supports the Model Context Protocol can use the Slidedown MCP serv
 ```json
 {
   "command": "node",
-  "args": ["/absolute/path/to/slidedown/mcp-server/index.js"]
+  "args": ["/Users/YOUR_USERNAME/.slidedown/mcp-server/index.js"]
 }
 ```
+
+Replace `YOUR_USERNAME` with your actual username, or `%USERPROFILE%\.slidedown\mcp-server\index.js` on Windows.
 
 ### Using the MCP Server
 
@@ -223,23 +287,41 @@ The AI will have access to the Slidedown syntax documentation and can help you w
 
 ## Building Presentations
 
+### Using the CLI (Recommended)
+
+After installation, use the `slidedown` command from anywhere:
+
+```bash
+# Build a presentation with default theme (black)
+slidedown build slides.md my-talk
+
+# Build with a specific theme
+slidedown build slides.md my-talk moon
+
+# Validate markdown before building
+slidedown validate slides.md
+
+# See all options
+slidedown help
+```
+
+**Note**: If you haven't installed globally, use `node cli.js` from the slidedown directory instead.
+
+The CLI will:
+- Create the output directory
+- Copy markdown and images
+- Generate HTML wrapper with reveal.js configuration
+- Create necessary symlinks to dist/ and plugin/ directories
+
 ### Using the MCP Server
 
 Ask your AI assistant: "Build my presentation from input/my-talk/slides.md with the moon theme"
 
+The AI will use the `build_presentation` tool to build your presentation automatically.
+
 ### Manual Build
 
-The development server automatically serves presentations from the `input/` directory. For standalone builds:
-
-```bash
-# The MCP server's build_presentation tool creates standalone HTML in output/
-node -e "
-const build = require('./mcp-server/index.js');
-// Use the build_presentation tool programmatically
-"
-```
-
-Or simply copy your markdown file to the `output/` directory with the generated HTML template.
+The development server automatically serves presentations from the `input/` directory. For standalone builds, use the CLI tool above.
 
 ---
 
