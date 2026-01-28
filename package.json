@@ -1,7 +1,7 @@
 {
   "name": "slidedown",
-  "version": "1.0.0",
-  "description": "Markdown-first presentations powered by reveal.js",
+  "version": "2.0.0",
+  "description": "Modern markdown presentations with a custom React renderer",
   "homepage": "https://github.com/adubinsky/slidedown",
   "main": "dist/reveal.js",
   "module": "dist/reveal.esm.js",
