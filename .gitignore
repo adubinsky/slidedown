@@ -21,3 +21,6 @@ output/*
 # Input directory (user presentations, except example)
 input/*
 !input/example/
+
+# Notes directory (development docs)
+notes/
