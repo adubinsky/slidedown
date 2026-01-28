@@ -302,8 +302,7 @@ slidedown/
 │   │   └── index.css             # Global styles & Tailwind
 │   ├── package.json              # App dependencies
 │   └── vite.config.js            # Vite configuration
-├── ROADMAP_REVISED.md            # Product roadmap
-├── IMPLEMENTATION_SUMMARY.md     # Technical implementation details
+├── ROADMAP.md                    # Product roadmap
 └── README.md                     # This file
 ```
 
@@ -346,7 +345,7 @@ Slidedown 2.0 currently has **85% feature parity** with reveal.js:
 - [ ] PDF export
 - [ ] Code line highlighting
 
-See [ROADMAP_REVISED.md](ROADMAP_REVISED.md) for detailed planning.
+See [ROADMAP.md](ROADMAP.md) for detailed planning.
 
 ## Development
 
@@ -423,7 +422,7 @@ Most markdown remains the same:
 
 ## Contributing
 
-Slidedown 2.0 is in active development. See [ROADMAP_REVISED.md](ROADMAP_REVISED.md) for planned features and priorities.
+Slidedown 2.0 is in active development. See [ROADMAP.md](ROADMAP.md) for planned features and priorities.
 
 ## Credits
 
