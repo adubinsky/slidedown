@@ -1,0 +1,26 @@
+.idea/
+*.iml
+*.iws
+*.eml
+out/
+.DS_Store
+.svn
+log/*.log
+tmp/**
+node_modules/
+.sass-cache
+
+# Environment files
+.env
+.env.*
+
+# Output directory (generated presentations)
+output/*
+!output/.gitkeep
+
+# Input directory (user presentations, except example)
+input/*
+!input/example/
+
+# Notes directory (development docs)
+notes/
