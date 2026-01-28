@@ -1,0 +1,33 @@
+{
+  "name": "slidedown",
+  "version": "2.0.0",
+  "description": "Modern markdown presentations with a custom React renderer",
+  "homepage": "https://github.com/adubinsky/slidedown",
+  "author": {
+    "name": "Andrew Dubinsky",
+    "email": "adubinsky@gmail.com",
+    "url": "https://github.com/adubinsky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/adubinsky/slidedown.git"
+  },
+  "license": "AGPL-3.0",
+  "slidedown",
+  "slides",
+  "presentation",
+  "markdown",
+  "react",
+  "vite"
+],
+"scripts": {
+  "dev": "cd app && npm run dev",
+  "build": "cd app && npm run build",
+  "preview": "cd app && npm run preview",
+  "install-all": "npm install && cd app && npm install && cd ../mcp-server && npm install"
+},
+"workspaces": [
+  "app",
+  "mcp-server"
+]
+}

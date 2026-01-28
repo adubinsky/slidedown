@@ -426,16 +426,19 @@ Slidedown 2.0 is in active development. See [ROADMAP.md](ROADMAP.md) for planned
 
 ## Credits
 
-- **Andrew Dubinsky** ([@andrewdubinsky](https://twitter.com/andrewdubinsky)) - Creator & Maintainer
-- **Hakim El Hattab** - Original reveal.js (which inspired v1.0)
+**Andrew Dubinsky** ([@andrewdubinsky](https://twitter.com/andrewdubinsky)) - Creator & Maintainer
 
 ## License
 
-MIT License
+AGPL v3
 
 Copyright (c) 2026 Andrew Dubinsky
 
-See [LICENSE](LICENSE) for details.
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+**Important**: If you provide this software as a hosted service to others, you must make your source code available under AGPL v3. This protects the open source nature of the project.
+
+See [LICENSE](LICENSE) for full terms.
 
 ---
 
