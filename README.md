@@ -430,15 +430,54 @@ Slidedown 2.0 is in active development. See [ROADMAP.md](ROADMAP.md) for planned
 
 ## License
 
-AGPL v3
+Slidedown is available under **dual licensing**:
 
-Copyright (c) 2026 Andrew Dubinsky
+### Free License (Non-Commercial)
 
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+**Prosperity Public License 3.0.0** - Free for non-commercial use
 
-**Important**: If you provide this software as a hosted service to others, you must make your source code available under AGPL v3. This protects the open source nature of the project.
+✅ **Free for:**
+- Personal projects and presentations
+- Non-profit organizations
+- Educational institutions
+- Research and academic use
+- Open source projects
+- Hobbyists and students
 
-See [LICENSE](LICENSE) for full terms.
+✅ **Includes:**
+- Full source code access
+- Right to modify and share
+- 30-day commercial trial period
+
+See [LICENSE](LICENSE) for complete terms.
+
+### Commercial License
+
+**Commercial use requires a paid license** after the 30-day trial period.
+
+💼 **Required for:**
+- Business presentations and internal use
+- SaaS or hosted services
+- Commercial products or services
+- For-profit companies
+- Client work and consulting
+
+📋 **License Options:**
+- **Individual Developer**: $199/year
+- **Team (up to 10 devs)**: $799/year
+- **Enterprise (unlimited)**: $2,999/year + white-label rights
+- **SaaS/Hosting**: Custom pricing
+
+See [COMMERCIAL-LICENSE.md](COMMERCIAL-LICENSE.md) for details and pricing.
+
+### Purchase a Commercial License
+
+📧 **Contact**: andrew@cloudze.com
+🐙 **GitHub**: https://github.com/adubinsky/slidedown
+
+---
+
+**Copyright (c) 2026 Andrew Dubinsky**
 
 ---
 
