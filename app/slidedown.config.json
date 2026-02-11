@@ -1,0 +1,32 @@
+{
+  "version": "2.0",
+  "branding": {
+    "logo": "/logo.png",
+    "logoPosition": "bottom-right",
+    "logoSize": "80px"
+  },
+  "defaults": {
+    "background": null,
+    "transition": "slide",
+    "fragmentAnimation": "fade-in"
+  },
+  "theme": {
+    "colors": {
+      "primary": "#667eea",
+      "secondary": "#764ba2",
+      "accent": "#4299e1"
+    },
+    "fonts": {
+      "heading": "system-ui, sans-serif",
+      "body": "system-ui, sans-serif",
+      "code": "monospace"
+    }
+  },
+  "features": {
+    "fragments": true,
+    "math": true,
+    "syntaxHighlighting": true,
+    "tableOfContents": true,
+    "mouseWheelNavigation": true
+  }
+}

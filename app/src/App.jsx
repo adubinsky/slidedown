@@ -131,6 +131,17 @@ export default function App() {
           console.error('Failed to load comprehensive test:', error);
           setIsLoading(false);
         });
+    } else if (testMode === 'new-syntax') {
+      fetch('/src/test-content/new-syntax-demo.md')
+        .then(response => response.text())
+        .then(text => {
+          setMarkdown(text);
+          setIsLoading(false);
+        })
+        .catch(error => {
+          console.error('Failed to load new syntax demo:', error);
+          setIsLoading(false);
+        });
     } else if (mdParam) {
       // In future, fetch markdown from URL
       // For now, use sample

@@ -2,6 +2,10 @@
   "name": "slidedown",
   "version": "2.0.0",
   "description": "Modern markdown presentations with a custom React renderer",
+  "type": "module",
+  "bin": {
+    "slidedown": "./cli.js"
+  },
   "homepage": "https://github.com/adubinsky/slidedown",
   "author": {
     "name": "Andrew Dubinsky",
@@ -13,21 +17,26 @@
     "url": "git://github.com/adubinsky/slidedown.git"
   },
   "license": "AGPL-3.0",
-  "slidedown",
-  "slides",
-  "presentation",
-  "markdown",
-  "react",
-  "vite"
-],
-"scripts": {
-  "dev": "cd app && npm run dev",
-  "build": "cd app && npm run build",
-  "preview": "cd app && npm run preview",
-  "install-all": "npm install && cd app && npm install && cd ../mcp-server && npm install"
-},
-"workspaces": [
-  "app",
-  "mcp-server"
-]
+  "keywords": [
+    "slidedown",
+    "slides",
+    "presentation",
+    "markdown",
+    "react",
+    "vite",
+    "cli",
+    "mcp"
+  ],
+  "scripts": {
+    "dev": "cd app && npm run dev",
+    "build": "cd app && npm run build",
+    "preview": "cd app && npm run preview",
+    "install-all": "npm install && cd app && npm install && cd ../mcp-server && npm install",
+    "cli": "node cli.js",
+    "mcp": "node mcp-server/index.js"
+  },
+  "workspaces": [
+    "app",
+    "mcp-server"
+  ]
 }

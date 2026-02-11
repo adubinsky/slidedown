@@ -81,7 +81,7 @@ export default function Presentation({ markdown }) {
     }
   }, [slides.length, currentIndex]);
 
-  // Keyboard navigation
+  // Keyboard and mouse navigation
   useEffect(() => {
     const handleKeyDown = (e) => {
       switch (e.key) {
@@ -118,8 +118,30 @@ export default function Presentation({ markdown }) {
       }
     };
 
+    // Mouse wheel navigation
+    let wheelTimeout;
+    const handleWheel = (e) => {
+      // Prevent multiple triggers from a single scroll gesture
+      clearTimeout(wheelTimeout);
+      wheelTimeout = setTimeout(() => {
+        if (e.deltaY > 0) {
+          // Scrolling down - next slide
+          nextSlide();
+        } else if (e.deltaY < 0) {
+          // Scrolling up - previous slide
+          previousSlide();
+        }
+      }, 50); // Debounce to prevent too many triggers
+    };
+
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener('wheel', handleWheel, { passive: true });
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('wheel', handleWheel);
+      clearTimeout(wheelTimeout);
+    };
   }, [nextSlide, previousSlide, goToSlide, slides.length, showTOC]);
 
   if (slides.length === 0) {

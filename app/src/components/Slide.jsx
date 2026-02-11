@@ -31,8 +31,10 @@ const slideVariants = {
 export default function Slide({ content, isActive, direction = 0, attributes = {}, fragments = [], currentFragmentIndex = -1 }) {
   if (!isActive) return null;
 
-  // Build background styles from slide attributes
+  // Build background styles - separate layer for images with opacity
   const bgStyle = {};
+  const bgImageStyle = {};
+  let hasBackgroundImage = false;
 
   if (attributes.backgroundColor) {
     bgStyle.backgroundColor = attributes.backgroundColor;
@@ -41,15 +43,17 @@ export default function Slide({ content, isActive, direction = 0, attributes = {
     if (attributes.background.startsWith('#')) {
       bgStyle.backgroundColor = attributes.background;
     } else if (attributes.background.startsWith('http') || attributes.background.startsWith('/')) {
-      bgStyle.backgroundImage = `url(${attributes.background})`;
-      bgStyle.backgroundSize = attributes.backgroundSize || 'cover';
-      bgStyle.backgroundPosition = attributes.backgroundPosition || 'center';
-      bgStyle.backgroundRepeat = 'no-repeat';
+      // Use separate layer for images (to support opacity)
+      hasBackgroundImage = true;
+      const imageUrl = attributes.background;
+      bgImageStyle.backgroundImage = `url(${imageUrl})`;
+      bgImageStyle.backgroundSize = attributes.backgroundSize || 'cover';
+      bgImageStyle.backgroundPosition = attributes.backgroundPosition || 'center';
+      bgImageStyle.backgroundRepeat = 'no-repeat';
+      bgImageStyle.opacity = attributes.backgroundOpacity ?? 1;
+    } else if (attributes.background.includes('gradient')) {
+      bgStyle.background = attributes.background;
     }
-  }
-
-  if (attributes.backgroundOpacity !== undefined) {
-    bgStyle.opacity = attributes.backgroundOpacity;
   }
 
   return (
@@ -67,7 +71,15 @@ export default function Slide({ content, isActive, direction = 0, attributes = {
       className="absolute inset-0 overflow-auto"
       style={bgStyle}
     >
-      <div className="min-h-full flex items-center justify-center p-16">
+      {/* Background image layer with opacity support */}
+      {hasBackgroundImage && (
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={bgImageStyle}
+        />
+      )}
+
+      <div className="min-h-full flex items-center justify-center p-16 relative z-10">
         <div className="slide-content max-w-5xl w-full">
           <ReactMarkdown
             remarkPlugins={[remarkGfm, remarkMath, remarkDeflist]}
