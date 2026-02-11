@@ -18,6 +18,29 @@ const ROOT_DIR = path.resolve(__dirname, '..');
 const SLIDEDOWN_SYNTAX_DOCS = `
 # Slidedown 2.0 Markdown Syntax Reference
 
+## HOW SLIDEDOWN WORKS
+Slidedown turns markdown into interactive slide presentations. Each slide can have:
+1. **Content** - Headings, text, lists, code, images, math
+2. **Background** - Colors, gradients, or images with opacity
+3. **Fragments** - Content that reveals incrementally on arrow/space key presses
+
+**Fragment Behavior:** Fragments create progressive disclosure. When viewing a slide:
+- First view: Only non-fragment content is visible
+- Press → or Space: Next fragment reveals (fades/slides/grows into view)
+- Press → again: Next fragment reveals, and so on
+- All fragments on a slide must be revealed before moving to the next slide
+
+## TYPICAL WORKFLOW (AI ↔ USER)
+1. **User** requests a presentation topic
+2. **AI** (you) generates markdown using new syntax
+3. **AI** uses write_markdown tool to save the file
+4. **AI** uses serve tool to start preview server
+5. **User** reviews in browser, suggests changes
+6. **AI** uses read_markdown to see current content
+7. **AI** modifies and uses write_markdown to update
+8. **User** sees changes automatically (hot reload)
+9. Repeat until satisfied, then use build tool for production
+
 ## Slide Separators
 - \`---\` creates a new horizontal slide
 - \`--\` creates a vertical slide (nested under the current horizontal slide)
@@ -140,6 +163,202 @@ Vue
 
 ## Company Branding
 To add a logo to all slides, create a config file (see \`create_config\` tool).
+
+---
+
+## COMPLETE EXAMPLES FOR AI GENERATION
+
+### Example 1: Title Slide
+\`\`\`markdown
+# Product Launch 2026
+
+## Introducing Our Revolutionary Platform
+
+**January 15, 2026**
+
+By Sarah Chen, Product Director
+\`\`\`
+
+### Example 2: Slide with Background + Fragments
+\`\`\`markdown
+::: #667eea
+
+## Key Features
+
+Our platform delivers:
+
+- >> Security first architecture
+- ^^^ Cloud-native scalability
+- vvv Real-time collaboration
+- ---> AI-powered insights
+- +++ 99.99% uptime SLA
+\`\`\`
+**How this works:** Purple background. Each bullet appears one at a time when user presses →
+
+### Example 3: Image Background with Code
+\`\`\`markdown
+::: https://images.unsplash.com/photo-1517694712202-14dd9538aa97
+::: opacity:0.25
+
+## Tech Stack
+
+Built with modern technologies:
+
+\`\`\`typescript
+interface User {
+  id: string;
+  name: string;
+  role: 'admin' | 'user';
+}
+\`\`\`
+
+- ^^^ TypeScript for type safety
+- vvv React for UI
+- ---> Node.js backend
+\`\`\`
+**How this works:** Tech-themed background at 25% opacity. Code block always visible, bullets reveal incrementally.
+
+### Example 4: Data Slide with Table + Math
+\`\`\`markdown
+## Performance Metrics
+
+| Metric | Before | After | Improvement |
+|--------|--------|-------|-------------|
+| Load Time | 3.2s | 0.8s | ^^^ **75%** |
+| Memory | 450MB | 180MB | vvv **60%** |
+| CPU | 85% | 35% | ---> **59%** |
+
+Cost savings formula:
+
+$$
+\\text{Savings} = \\frac{\\text{Old Cost} - \\text{New Cost}}{\\text{Old Cost}} \\times 100\\%
+$$
+\`\`\`
+**How this works:** Table rows can have fragments. Math equation always visible.
+
+### Example 5: Vertical Slides (Nested Content)
+\`\`\`markdown
+## Roadmap Overview
+
+Press ↓ to explore each quarter
+
+--
+
+### Q1 2026
+
+- ^^^ Feature A launch
+- vvv Feature B beta
+- ---> Platform v2.0
+
+--
+
+### Q2 2026
+
+- <--- Mobile apps
+- +++ Enterprise tier
+- ... Legacy migration complete
+\`\`\`
+**How this works:** First slide is overview. Press ↓ to go to Q1 details, ↓ again for Q2. Press → to move to next topic.
+
+### Example 6: Call-to-Action Slide
+\`\`\`markdown
+::: linear-gradient(135deg, #667eea 0%, #764ba2 100%)
+
+# +++Ready to Get Started?+++
+
+## Join 10,000+ companies already using our platform
+
+- >> Try free for 30 days
+- ^^^ No credit card required
+- vvv Cancel anytime
+
+**Visit:** +++app.example.com+++ ^^^
+
+Questions? →→→ hello@example.com ^^^
+\`\`\`
+**How this works:** Gradient background. Title grows on entry. Everything else reveals progressively.
+
+---
+
+## BEST PRACTICES FOR AI-GENERATED PRESENTATIONS
+
+1. **Ask user about:**
+   - Target audience (technical? executives? general?)
+   - Presentation length (5, 10, 20 slides?)
+   - Tone (formal? casual? fun?)
+   - Branding (colors? logo?)
+
+2. **Structure pattern:**
+   \`\`\`
+   Title Slide
+   ---
+   Agenda/Overview
+   ---
+   [Content Slides with topics]
+   ---
+   Conclusion/Call-to-Action
+   ---
+   Thank You / Questions
+   \`\`\`
+
+3. **Fragment usage:**
+   - Use fragments for key points that build on each other
+   - Don't fragment everything (overwhelming)
+   - 3-5 fragments per slide is ideal
+   - Always visible: titles, important context, images
+
+4. **Background usage:**
+   - Dark colors (#1a1a1a, #667eea) for tech/professional
+   - Light gradients for creative/marketing
+   - Images with opacity:0.2-0.4 for visual interest without overwhelming text
+   - Consistent background style = professional look
+
+5. **Combining features:**
+   \`\`\`markdown
+   ::: linear-gradient(to right, #667eea, #764ba2)
+
+   ## AI in Healthcare
+
+   Market size: $10.4B +++
+
+   - ^^^ Diagnostic accuracy: 95%
+   - vvv Treatment time: -40%
+   - ---> Patient satisfaction: +60%
+
+   \`\`\`javascript
+   // AI model prediction
+   const diagnosis = await ai.predict(patientData);
+   \`\`\`
+
+   Key insight: +++AI reduces errors by 78%+++ ^^^
+   \`\`\`
+
+## COMMON MISTAKES TO AVOID
+
+❌ **DON'T:**
+- Mix old (HTML comments) and new syntax in same presentation
+- Put fragments on slide titles (they should always be visible)
+- Use image backgrounds without opacity (text becomes unreadable)
+- Create 50-slide presentations (aim for 10-15 focused slides)
+
+✅ **DO:**
+- Use new ::: and ^^^ syntax (cleaner, more readable)
+- Test the presentation (use serve tool) before final delivery
+- Ask user to review and iterate based on feedback
+- Use fragments sparingly for impact
+- Match background colors to user's brand (if they provide)
+
+## WORKFLOW SUMMARY
+
+When user asks for a presentation:
+1. **Clarify:** Ask about topic, audience, length, style
+2. **Generate:** Create markdown using new syntax
+3. **Save:** Use write_markdown tool
+4. **Preview:** Use serve tool (gives user URL to view)
+5. **Iterate:** User reviews → you read_markdown → you modify → write_markdown (auto-reloads)
+6. **Deploy:** When approved, use build tool for production files
+
+This workflow creates a collaborative experience where you and the user refine the presentation together!
 `;
 
 const server = new Server(
