@@ -11,17 +11,19 @@ const __dirname = path.dirname(__filename);
 const commands = {
 	init: {
 		description: 'Create a new presentation',
-		usage: 'slidedown init <name> [title]',
+		usage: 'slidedown init [filename] [title]',
 		action: async (args) => {
-			const name = args[0];
-			if (!name) {
-				console.error('Error: Please provide a presentation name');
-				console.log('Usage: slidedown init <name> [title]');
-				process.exit(1);
+			const cwd = process.cwd(); // User's current directory
+			let filename = args[0] || 'presentation.md';
+
+			// Ensure .md extension
+			if (!filename.endsWith('.md')) {
+				filename = filename + '.md';
 			}
 
+			const name = path.basename(filename, '.md');
 			const title = args.slice(1).join(' ') || name;
-			const outputPath = path.join(__dirname, 'app', 'src', 'test-content', `${name}.md`);
+			const outputPath = path.join(cwd, filename);
 
 			const starterContent = `# ${title}
 
@@ -95,13 +97,22 @@ Questions? ^^^
 `;
 
 			try {
-				await fs.mkdir(path.dirname(outputPath), { recursive: true });
+				// Check if file already exists
+				try {
+					await fs.access(outputPath);
+					console.error(`❌ File already exists: ${filename}`);
+					console.log(`💡 Choose a different name or delete the existing file`);
+					process.exit(1);
+				} catch {
+					// File doesn't exist, which is what we want
+				}
+
 				await fs.writeFile(outputPath, starterContent, 'utf-8');
 
-				console.log(`✅ Presentation created: ${name}`);
+				console.log(`✅ Presentation created!`);
 				console.log(`📄 File: ${outputPath}`);
 				console.log(`\n🚀 Next steps:`);
-				console.log(`   slidedown serve ${name}`);
+				console.log(`   slidedown serve${filename !== 'presentation.md' ? ' ' + filename : ''}`);
 			} catch (error) {
 				console.error(`❌ Error creating presentation: ${error.message}`);
 				process.exit(1);
@@ -111,14 +122,52 @@ Questions? ^^^
 
 	serve: {
 		description: 'Start development server',
-		usage: 'slidedown serve [presentation-name]',
+		usage: 'slidedown serve [presentation.md]',
 		action: async (args) => {
 			const appDir = path.join(__dirname, 'app');
-			const presentationName = args[0] || 'new-syntax-demo';
+			const cwd = process.cwd(); // User's current directory
+
+			// Find presentation file in current directory
+			const presentationFile = args[0] || 'presentation.md';
+			const sourcePath = path.join(cwd, presentationFile);
+			const destPath = path.join(appDir, 'public', 'presentations', 'presentation.md');
+
+			// Check if presentation exists
+			try {
+				await fs.access(sourcePath);
+			} catch (error) {
+				console.error(`❌ Presentation not found: ${presentationFile}`);
+				console.log(`📍 Looking in: ${cwd}`);
+				console.log(`\n💡 Create a presentation with: slidedown init`);
+				process.exit(1);
+			}
+
+			// Copy presentation to app's public folder
+			try {
+				await fs.mkdir(path.dirname(destPath), { recursive: true });
+				await fs.copyFile(sourcePath, destPath);
+				console.log(`📄 Loaded: ${presentationFile}`);
+			} catch (error) {
+				console.error(`❌ Error copying presentation: ${error.message}`);
+				process.exit(1);
+			}
 
 			console.log(`🚀 Starting Slidedown development server...`);
-			console.log(`📺 Opening: http://localhost:5173?test=${presentationName}`);
+			console.log(`📺 Opening: http://localhost:5173`);
+			console.log(`📂 Working directory: ${cwd}`);
 			console.log(`\n⌨️  Press Ctrl+C to stop\n`);
+
+			// Watch for changes and re-copy
+			const { watch } = await import('fs');
+			const watcher = watch(sourcePath);
+			watcher.on('change', async () => {
+				try {
+					await fs.copyFile(sourcePath, destPath);
+					console.log(`🔄 Reloaded: ${presentationFile}`);
+				} catch (error) {
+					console.error(`❌ Error reloading: ${error.message}`);
+				}
+			});
 
 			const child = spawn('npm', ['run', 'dev'], {
 				cwd: appDir,
@@ -135,6 +184,7 @@ Questions? ^^^
 
 			process.on('SIGINT', () => {
 				console.log('\n👋 Stopping server...');
+				watcher.close();
 				child.kill();
 				process.exit(0);
 			});
