@@ -117,12 +117,14 @@ export default function App() {
     // Check if markdown is provided via URL parameter or will be loaded
     const urlParams = new URLSearchParams(window.location.search);
     const mdParam = urlParams.get('md');
-    const testMode = urlParams.get('test');
-    const tutorialMode = urlParams.get('tutorial');
 
-    // Load from tutorials if ?tutorial=filename
-    if (tutorialMode) {
-      fetch(`/tutorials/${tutorialMode}.md`)
+    // Support both old and new parameter names
+    const demoMode = urlParams.get('demo') || urlParams.get('test');
+    const trainingMode = urlParams.get('training') || urlParams.get('tutorial');
+
+    // Load from training if ?training=filename (or legacy ?tutorial=)
+    if (trainingMode) {
+      fetch(`/training/${trainingMode}.md`)
         .then(response => {
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -134,12 +136,12 @@ export default function App() {
           setIsLoading(false);
         })
         .catch(error => {
-          console.error(`Failed to load tutorial ${tutorialMode}:`, error);
+          console.error(`Failed to load training ${trainingMode}:`, error);
           setIsLoading(false);
         });
-    } else if (testMode) {
-      // Load from examples if ?test=filename
-      fetch(`/examples/${testMode}.md`)
+    } else if (demoMode) {
+      // Load from demos if ?demo=filename (or legacy ?test=)
+      fetch(`/demos/${demoMode}.md`)
         .then(response => {
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -151,7 +153,7 @@ export default function App() {
           setIsLoading(false);
         })
         .catch(error => {
-          console.error(`Failed to load example ${testMode}:`, error);
+          console.error(`Failed to load demo ${demoMode}:`, error);
           setIsLoading(false);
         });
     } else if (mdParam) {

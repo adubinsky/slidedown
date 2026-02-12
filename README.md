@@ -65,28 +65,29 @@ Edit `presentation.md` in your current directory. The dev server will automatica
 - Reload the browser
 - Show your updates instantly
 
-### Try the Examples
+### Try the Demos and Training
 
-Built-in examples and tutorials are available:
+Built-in demos and training content are available via CLI or URL:
 
-**Getting Started Tutorial:**
+**Training (Learn Slidedown):**
+```bash
+slidedown training            # Opens getting-started tutorial
+slidedown training getting-started
 ```
-http://localhost:5173?tutorial=getting-started
-```
-Interactive tutorial teaching Slidedown basics step-by-step
+Or visit: `http://localhost:5173?training=getting-started`
 
-**Feature Examples:**
-```
-http://localhost:5173?test=new-syntax-demo
-```
-Showcases the new markdown-native syntax with `:::` directives and symbol-based fragments
+Interactive training teaching Slidedown basics step-by-step (20+ slides)
 
+**Demos (See Features):**
+```bash
+slidedown demo new-syntax-demo    # New syntax showcase
+slidedown demo comprehensive      # All features
 ```
-http://localhost:5173?test=comprehensive
-```
-Comprehensive example with all features (uses old HTML comment syntax)
+Or visit:
+- `http://localhost:5173?demo=new-syntax-demo` - New `:::` syntax and symbols
+- `http://localhost:5173?demo=comprehensive` - All features (HTML syntax)
 
-All examples live in `public/examples/` and `public/tutorials/` for easy access.
+All content lives in `public/demos/` and `public/training/` for easy access.
 
 ### Claude/MCP Integration
 
@@ -524,10 +525,10 @@ slidedown/
 │   └── vite.config.js            # Vite configuration
 ├── public/                       # Static files (served by Vite)
 │   ├── presentations/            # User presentations (CLI copies here)
-│   ├── examples/                 # Example presentations
+│   ├── demos/                    # Demo presentations
 │   │   ├── new-syntax-demo.md   # New syntax showcase
 │   │   └── comprehensive.md     # All features demo
-│   ├── tutorials/                # Interactive tutorials
+│   ├── training/                 # Training presentations
 │   │   └── getting-started.md   # Beginner's guide
 │   └── README.md                 # Public folder documentation
 ├── mcp-server/                   # MCP server for Claude integration
@@ -642,9 +643,18 @@ This creates optimized static files in `app/dist/` ready for deployment.
 ```bash
 slidedown init [filename] [title]    # Create new presentation
 slidedown serve [filename]            # Start dev server
+slidedown demo [name]                 # Open a demo presentation
+slidedown training [name]             # Open training content
 slidedown build                       # Build for production
 slidedown config [options]            # Create config file
 slidedown help [command]              # Show help
+```
+
+**Examples:**
+```bash
+slidedown training                    # Open getting-started tutorial
+slidedown demo new-syntax-demo        # See new syntax in action
+slidedown serve                       # Serve your own presentation
 ```
 
 See [CLI-ARCHITECTURE.md](CLI-ARCHITECTURE.md) for detailed CLI documentation.

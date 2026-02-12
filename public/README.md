@@ -1,6 +1,6 @@
 # Public Folder
 
-This folder contains all user-facing presentations and examples.
+This folder contains all user-facing presentations, demos, and training content.
 
 ## Structure
 
@@ -8,10 +8,10 @@ This folder contains all user-facing presentations and examples.
 public/
 ├── presentations/           # User presentations (CLI copies here)
 │   └── presentation.md     # Default presentation from 'slidedown serve'
-├── examples/                # Example presentations
+├── demos/                   # Demo presentations
 │   ├── new-syntax-demo.md  # Showcases new syntax
 │   └── comprehensive.md    # All features demo
-└── tutorials/               # Interactive tutorials (future)
+└── training/                # Training presentations
     └── getting-started.md  # Introduction to Slidedown
 ```
 
@@ -26,45 +26,67 @@ When you run `slidedown serve` from any directory, the CLI:
 
 **This folder is temporary** - your actual presentation lives in your working directory.
 
-### Examples (`examples/`)
+### Demos (`demos/`)
 
-Access with `?test=` parameter:
+Access with `?demo=` parameter or CLI command:
 
 ```
-http://localhost:5173?test=new-syntax-demo
-http://localhost:5173?test=comprehensive
+http://localhost:5173?demo=new-syntax-demo
+http://localhost:5173?demo=comprehensive
+```
+
+Or use the CLI:
+```bash
+slidedown demo new-syntax-demo
+slidedown demo comprehensive
 ```
 
 These demonstrate Slidedown features and syntax.
 
-### Tutorials (`tutorials/`)
+### Training (`training/`)
 
-Access with `?tutorial=` parameter (future):
+Access with `?training=` parameter or CLI command:
 
 ```
-http://localhost:5173?tutorial=getting-started
+http://localhost:5173?training=getting-started
 ```
 
-Step-by-step learning content.
+Or use the CLI:
+```bash
+slidedown training getting-started
+slidedown training  # Defaults to getting-started
+```
 
-## Adding Your Own Examples
+Step-by-step learning content for mastering Slidedown.
 
-1. Create a markdown file in `public/examples/`
-2. Access it with `?test=your-filename`
+## Adding Your Own Content
+
+1. Create a markdown file in `public/demos/` or `public/training/`
+2. Access it with the appropriate parameter
 
 Example:
 ```bash
-# Create example
-echo "# My Example\n\n---\n\n## Slide 2" > public/examples/my-example.md
+# Create demo
+echo "# My Demo\n\n---\n\n## Slide 2" > public/demos/my-demo.md
 
 # View it
-open http://localhost:5173?test=my-example
+slidedown demo my-demo
+# or
+open http://localhost:5173?demo=my-demo
+```
+
+## CLI Commands
+
+```bash
+slidedown serve            # Serve your presentation
+slidedown demo [name]      # Open a demo
+slidedown training [name]  # Open training content
 ```
 
 ## File Organization
 
 **Why this structure?**
 - ✅ Easy to find - everything in one `public/` folder
-- ✅ Clear separation - presentations / examples / tutorials
-- ✅ Simple to spin up - all examples in one place
+- ✅ Clear separation - presentations / demos / training
+- ✅ Simple to spin up - CLI commands for everything
 - ✅ Clean architecture - user data separate from app code

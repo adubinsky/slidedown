@@ -294,6 +294,66 @@ Questions? ^^^
 		},
 	},
 
+	demo: {
+		description: 'Open a demo presentation',
+		usage: 'slidedown demo [demo-name]',
+		action: async (args) => {
+			const appDir = path.join(__dirname, 'app');
+			const demoName = args[0] || 'new-syntax-demo';
+
+			console.log(`🎯 Opening demo: ${demoName}`);
+			console.log(`📺 URL: http://localhost:5173?demo=${demoName}`);
+			console.log(`\n⌨️  Press Ctrl+C to stop\n`);
+
+			const child = spawn('npm', ['run', 'dev'], {
+				cwd: appDir,
+				stdio: 'inherit',
+				shell: true,
+			});
+
+			child.on('error', (error) => {
+				console.error(`❌ Error starting server: ${error.message}`);
+				process.exit(1);
+			});
+
+			process.on('SIGINT', () => {
+				console.log('\n👋 Stopping server...');
+				child.kill();
+				process.exit(0);
+			});
+		},
+	},
+
+	training: {
+		description: 'Open a training presentation',
+		usage: 'slidedown training [training-name]',
+		action: async (args) => {
+			const appDir = path.join(__dirname, 'app');
+			const trainingName = args[0] || 'getting-started';
+
+			console.log(`📚 Opening training: ${trainingName}`);
+			console.log(`📺 URL: http://localhost:5173?training=${trainingName}`);
+			console.log(`\n⌨️  Press Ctrl+C to stop\n`);
+
+			const child = spawn('npm', ['run', 'dev'], {
+				cwd: appDir,
+				stdio: 'inherit',
+				shell: true,
+			});
+
+			child.on('error', (error) => {
+				console.error(`❌ Error starting server: ${error.message}`);
+				process.exit(1);
+			});
+
+			process.on('SIGINT', () => {
+				console.log('\n👋 Stopping server...');
+				child.kill();
+				process.exit(0);
+			});
+		},
+	},
+
 	help: {
 		description: 'Show help',
 		usage: 'slidedown help [command]',
