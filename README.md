@@ -20,6 +20,8 @@ Slidedown 2.0 is a complete rewrite from the ground up:
 - **Code Highlighting** - Syntax highlighting for 100+ languages
 - **Definition Lists** - Semantic formatting for glossaries and terms
 - **Mouse Wheel Navigation** - Scroll through slides naturally
+- **MCP Server** - Claude integration for AI-assisted presentation creation
+- **CLI Tool** - Command-line interface with init, serve, build commands
 
 ## Quick Start
 
@@ -76,6 +78,27 @@ Showcases the new markdown-native syntax with `:::` directives and symbol-based 
 http://localhost:5173?test=comprehensive
 ```
 Comprehensive example with all features (uses old HTML comment syntax)
+
+### Claude/MCP Integration
+
+Slidedown includes an MCP server for Claude integration. Once installed, you can ask Claude to:
+- Create presentations from scratch
+- Edit existing presentations
+- Add slides, animations, and styling
+- Generate content with proper Slidedown syntax
+
+**Install MCP server:** See [MCP-INSTALLATION.md](MCP-INSTALLATION.md) for complete instructions.
+
+**Usage example:**
+```
+You: "Create a 5-slide presentation about quantum computing"
+
+Claude: [Uses MCP tools to generate the presentation]
+```
+
+**Compatible with:** Claude Desktop, Claude Code CLI, and any MCP-compatible AI system.
+
+**Learn more:** [MCP-CLI-GUIDE.md](MCP-CLI-GUIDE.md)
 
 ## Writing Slides
 

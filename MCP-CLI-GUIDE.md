@@ -132,31 +132,38 @@ slidedown help init      # Show help for init command
 
 The MCP (Model Context Protocol) server allows Claude to create, edit, and manage Slidedown presentations.
 
-### Setup for Claude Desktop/CLI
+### Quick Setup
 
-1. **Install the MCP server:**
+**For detailed installation instructions**, see [MCP-INSTALLATION.md](MCP-INSTALLATION.md).
+
+**Quick start:**
+
+1. **Install Slidedown:**
    ```bash
-   cd mcp-server
-   npm install
+   cd slidedown
+   npm run install-all
+   npm link
    ```
 
-2. **Configure Claude to use the server:**
+2. **Configure Claude Desktop:**
 
-   Add to your Claude configuration file (usually `~/.claude/config.json` or Claude Desktop settings):
+   Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%/Claude/claude_desktop_config.json` (Windows):
 
    ```json
    {
      "mcpServers": {
        "slidedown": {
          "command": "node",
-         "args": ["/path/to/slidedown/mcp-server/index.js"],
+         "args": ["/FULL/PATH/TO/slidedown/mcp-server/index.js"],
          "description": "Slidedown 2.0 presentation tool"
        }
      }
    }
    ```
 
-3. **Restart Claude** to load the new MCP server.
+3. **Restart Claude Desktop** completely.
+
+**Supported systems:** Claude Desktop, Claude Code CLI, and any MCP-compatible AI system.
 
 ### Available MCP Tools
 
