@@ -1,5 +1,16 @@
 # CLI Architecture
 
+## Installation
+
+To use the `slidedown` command globally:
+
+```bash
+cd /path/to/slidedown
+npm link
+```
+
+Now `slidedown` works from any directory, just like `git` or `npm`.
+
 ## How It Works
 
 Slidedown follows standard CLI tool patterns (like git, npm, hugo):

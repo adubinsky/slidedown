@@ -23,28 +23,49 @@ Slidedown 2.0 is a complete rewrite from the ground up:
 
 ## Quick Start
 
-### Development Mode
+### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/adubinsky/slidedown.git
+cd slidedown
+
 # Install dependencies
 npm install
-cd app && npm install
+cd app && npm install && cd ..
+
+# Link the CLI globally
+npm link
+```
+
+Now `slidedown` works from any directory!
+
+### Create Your First Presentation
+
+```bash
+# Create a new folder for your presentation
+mkdir ~/my-presentation
+cd ~/my-presentation
+
+# Initialize a new presentation
+slidedown init
 
 # Start the dev server
-cd app && npm run dev
+slidedown serve
 ```
 
 Open http://localhost:5173 to see your presentation.
 
-### Load Custom Markdown
+### Edit and Preview
 
-Place your markdown file in `app/src/test-content/` and load it with:
+Edit `presentation.md` in your current directory. The dev server will automatically:
+- Detect your changes
+- Reload the browser
+- Show your updates instantly
 
-```
-http://localhost:5173?test=your-file-name
-```
+### Try the Examples
 
-**Try the demos:**
+Built-in examples are available with the `?test=` parameter:
 
 ```
 http://localhost:5173?test=new-syntax-demo
@@ -468,15 +489,24 @@ slidedown/
 │   │   ├── App.jsx               # Root component
 │   │   ├── main.jsx              # Entry point
 │   │   └── index.css             # Global styles & Tailwind
+│   ├── public/
+│   │   └── presentations/        # User presentations (copied by CLI)
 │   ├── package.json              # App dependencies
 │   └── vite.config.js            # Vite configuration
+├── mcp-server/                   # MCP server for Claude integration
+│   ├── index.js                  # MCP server implementation
+│   └── package.json              # MCP dependencies
+├── cli.js                        # Command-line tool
+├── package.json                  # Root package
+├── CLI-ARCHITECTURE.md           # CLI design documentation
+├── MCP-CLI-GUIDE.md              # MCP and CLI usage guide
 ├── ROADMAP.md                    # Product roadmap
 └── README.md                     # This file
 ```
 
 ## Feature Parity
 
-Slidedown 2.0 currently has **85% feature parity** with reveal.js:
+Slidedown 2.0 currently has **95% feature parity** with reveal.js:
 
 ### ✅ Implemented
 
@@ -564,11 +594,22 @@ This includes:
 ### Building for Production
 
 ```bash
-cd app
-npm run build
+slidedown build
 ```
 
-Output will be in `app/dist/`.
+This creates optimized static files in `app/dist/` ready for deployment.
+
+### CLI Commands
+
+```bash
+slidedown init [filename] [title]    # Create new presentation
+slidedown serve [filename]            # Start dev server
+slidedown build                       # Build for production
+slidedown config [options]            # Create config file
+slidedown help [command]              # Show help
+```
+
+See [CLI-ARCHITECTURE.md](CLI-ARCHITECTURE.md) for detailed CLI documentation.
 
 ## Performance
 

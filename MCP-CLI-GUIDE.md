@@ -21,47 +21,68 @@ cd slidedown
 # Install all dependencies
 npm run install-all
 
-# Link the CLI globally (optional)
+# Link the CLI globally
 npm link
 ```
+
+Now `slidedown` works from any directory!
+
+### How It Works
+
+Slidedown follows standard CLI patterns (like git, npm, hugo):
+- **App code lives in ONE place** - The slidedown installation
+- **Presentations live ANYWHERE** - In your Documents/, project folders, etc.
+- **CLI operates on current directory** - No need to copy app code
+
+See [CLI-ARCHITECTURE.md](CLI-ARCHITECTURE.md) for detailed architecture documentation.
 
 ### Commands
 
 #### `slidedown init`
-Create a new presentation with a starter template.
+Create a new presentation in the current directory.
 
 ```bash
-slidedown init <name> [title]
+slidedown init [filename] [title]
 
 # Examples:
-slidedown init my-presentation
-slidedown init sales-pitch "Q4 Sales Presentation"
+slidedown init                           # Creates presentation.md
+slidedown init my-presentation           # Creates my-presentation.md
+slidedown init sales-pitch "Q4 Sales"   # Creates sales-pitch.md with title
 ```
 
-Creates a new markdown file in `app/src/test-content/` with:
+Creates a markdown file in your **current directory** with:
 - New `:::` syntax examples
-- Symbol-based fragment animations
+- Symbol-based fragment animations (`^^^`, `vvv`, `--->`, etc.)
 - Background images with opacity
 - Math equations
 - Code highlighting
+- All Slidedown features demonstrated
 
 #### `slidedown serve`
-Start the development server with live preview.
+Start the development server from the current directory.
 
 ```bash
-slidedown serve [presentation-name]
+slidedown serve [filename]
 
 # Examples:
-slidedown serve                      # Opens new-syntax-demo
-slidedown serve my-presentation      # Opens your presentation
+cd ~/Documents/my-talks/
+slidedown serve                      # Serves presentation.md
+slidedown serve sales-pitch.md       # Serves sales-pitch.md
 ```
 
-Opens at: `http://localhost:5173?test=<presentation-name>`
+Opens at: `http://localhost:5173`
+
+**What happens:**
+1. Finds presentation file in current directory
+2. Copies to app temporarily
+3. Starts dev server with hot reload
+4. Watches for changes and auto-reloads
 
 **Features:**
 - Live reload on file changes
 - Hot module replacement (HMR)
 - Automatic browser refresh
+- Edit files in YOUR directory, not app source
 
 #### `slidedown build`
 Build the presentation for production deployment.
@@ -239,9 +260,18 @@ Get comprehensive syntax reference.
 
 **Using CLI:**
 ```bash
+# Create a folder for your presentation
+mkdir ~/my-talks
+cd ~/my-talks
+
+# Create the presentation
 slidedown init my-first-presentation "My First Deck"
-slidedown serve my-first-presentation
+
+# Start the server
+slidedown serve my-first-presentation.md
 ```
+
+Opens at `http://localhost:5173` with live reload.
 
 **Using Claude with MCP:**
 ```
@@ -258,12 +288,13 @@ Claude will:
 **Using CLI:**
 ```bash
 # 1. Place your logo in app/public/
-cp company-logo.png app/public/logo.png
+cp ~/Downloads/company-logo.png /path/to/slidedown/app/public/logo.png
 
 # 2. Create config
 slidedown config --logo /logo.png --position bottom-right --background #1a1a1a
 
-# 3. Restart server
+# 3. Restart server (from your presentation directory)
+cd ~/my-talks
 slidedown serve
 ```
 
