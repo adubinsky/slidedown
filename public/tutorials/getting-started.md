@@ -55,7 +55,7 @@ More content
 Use the `:::` directive:
 
 ```
-::: #667eea
+\:\:\: #667eea
 
 ## Purple Background
 
@@ -116,8 +116,8 @@ This has +++emphasized+++ text
 Add images with opacity:
 
 ```
-::: https://images.unsplash.com/photo-...
-::: opacity:0.3
+\:\:\: https://images.unsplash.com/photo-...
+\:\:\: opacity:0.3
 
 ## Title on Image
 

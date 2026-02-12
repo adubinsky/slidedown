@@ -10,8 +10,9 @@ New Markdown-Native Syntax Demo
 
 This slide has a purple background using the new syntax:
 
+**Code:**
 ```
-::: #667eea
+\:\:\: #667eea
 ```
 
 No more HTML comments!
@@ -60,9 +61,10 @@ Perfect for +++emphasizing+++ key concepts!
 
 This slide has a background image with reduced opacity.
 
+**Code:**
 ```
-::: https://images.unsplash.com/photo-1506905925346-21bda4d32df4
-::: opacity:0.3
+\:\:\: https://images.unsplash.com/photo-1506905925346-21bda4d32df4
+\:\:\: opacity:0.3
 ```
 
 ---
