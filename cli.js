@@ -130,7 +130,7 @@ Questions? ^^^
 			// Find presentation file in current directory
 			const presentationFile = args[0] || 'presentation.md';
 			const sourcePath = path.join(cwd, presentationFile);
-			const destPath = path.join(appDir, 'public', 'presentations', 'presentation.md');
+			const destPath = path.join(__dirname, 'public', 'presentations', 'presentation.md');
 
 			// Check if presentation exists
 			try {

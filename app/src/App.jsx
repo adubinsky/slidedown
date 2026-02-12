@@ -118,10 +118,11 @@ export default function App() {
     const urlParams = new URLSearchParams(window.location.search);
     const mdParam = urlParams.get('md');
     const testMode = urlParams.get('test');
+    const tutorialMode = urlParams.get('tutorial');
 
-    // Load from test-content if ?test=filename
-    if (testMode) {
-      fetch(`/src/test-content/${testMode}.md`)
+    // Load from tutorials if ?tutorial=filename
+    if (tutorialMode) {
+      fetch(`/tutorials/${tutorialMode}.md`)
         .then(response => {
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -133,7 +134,24 @@ export default function App() {
           setIsLoading(false);
         })
         .catch(error => {
-          console.error(`Failed to load test content ${testMode}:`, error);
+          console.error(`Failed to load tutorial ${tutorialMode}:`, error);
+          setIsLoading(false);
+        });
+    } else if (testMode) {
+      // Load from examples if ?test=filename
+      fetch(`/examples/${testMode}.md`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.text();
+        })
+        .then(text => {
+          setMarkdown(text);
+          setIsLoading(false);
+        })
+        .catch(error => {
+          console.error(`Failed to load example ${testMode}:`, error);
           setIsLoading(false);
         });
     } else if (mdParam) {

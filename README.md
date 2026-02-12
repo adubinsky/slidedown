@@ -67,8 +67,15 @@ Edit `presentation.md` in your current directory. The dev server will automatica
 
 ### Try the Examples
 
-Built-in examples are available with the `?test=` parameter:
+Built-in examples and tutorials are available:
 
+**Getting Started Tutorial:**
+```
+http://localhost:5173?tutorial=getting-started
+```
+Interactive tutorial teaching Slidedown basics step-by-step
+
+**Feature Examples:**
 ```
 http://localhost:5173?test=new-syntax-demo
 ```
@@ -78,6 +85,8 @@ Showcases the new markdown-native syntax with `:::` directives and symbol-based 
 http://localhost:5173?test=comprehensive
 ```
 Comprehensive example with all features (uses old HTML comment syntax)
+
+All examples live in `public/examples/` and `public/tutorials/` for easy access.
 
 ### Claude/MCP Integration
 
@@ -508,14 +517,19 @@ slidedown/
 │   │   │   └── rehype-fragments.js      # Fragment plugin
 │   │   ├── styles/
 │   │   │   └── slideStyles.js    # Dynamic slide styling
-│   │   ├── test-content/         # Example presentations
 │   │   ├── App.jsx               # Root component
 │   │   ├── main.jsx              # Entry point
 │   │   └── index.css             # Global styles & Tailwind
-│   ├── public/
-│   │   └── presentations/        # User presentations (copied by CLI)
 │   ├── package.json              # App dependencies
 │   └── vite.config.js            # Vite configuration
+├── public/                       # Static files (served by Vite)
+│   ├── presentations/            # User presentations (CLI copies here)
+│   ├── examples/                 # Example presentations
+│   │   ├── new-syntax-demo.md   # New syntax showcase
+│   │   └── comprehensive.md     # All features demo
+│   ├── tutorials/                # Interactive tutorials
+│   │   └── getting-started.md   # Beginner's guide
+│   └── README.md                 # Public folder documentation
 ├── mcp-server/                   # MCP server for Claude integration
 │   ├── index.js                  # MCP server implementation
 │   └── package.json              # MCP dependencies
@@ -523,6 +537,7 @@ slidedown/
 ├── package.json                  # Root package
 ├── CLI-ARCHITECTURE.md           # CLI design documentation
 ├── MCP-CLI-GUIDE.md              # MCP and CLI usage guide
+├── MCP-INSTALLATION.md           # MCP installation guide
 ├── ROADMAP.md                    # Product roadmap
 └── README.md                     # This file
 ```
