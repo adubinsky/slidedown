@@ -26,6 +26,13 @@
 - ✅ Production build optimization
 - ✅ Clean, production-ready codebase (no debug logs)
 - ✅ Improved code visibility on image backgrounds
+- ✅ Simple `/presentations/` folder for default content (no deep nesting)
+
+### Example Content (Foundation for Tutorials)
+- ✅ `new-syntax-demo.md` - Feature showcase
+- ✅ `flyio-demo.md` - Deployment guide
+- ✅ Parameter system: `?test=filename` loads examples
+- 🚧 Convert to full tutorial system (Tier 1 priority)
 
 ## Current Features (v2.0-stable)
 
@@ -63,25 +70,33 @@
 
 Build on the new syntax foundation:
 
-1. **Footnotes Support** ⭐⭐⭐⭐
+1. **Built-in Tutorials & Examples** ⭐⭐⭐⭐⭐ (IN PROGRESS)
+   - Interactive tutorials teaching Slidedown syntax
+   - Rename `?test=` to `?tutorial=` or `?example=`
+   - Gallery of example presentations by use case
+   - "Learn by doing" approach with editable examples
+   - Categories: syntax-basics, business, technical, academic
+   - Each tutorial demonstrates specific features progressively
+
+2. **Footnotes Support** ⭐⭐⭐⭐
    - GFM footnote syntax (`[^1]`, `[^1]: text`)
    - Automatic footnote numbering
    - Click to jump between reference and note
    - Plugin: `remark-footnotes`
 
-2. **Mermaid Diagrams** ⭐⭐⭐⭐⭐
+3. **Mermaid Diagrams** ⭐⭐⭐⭐⭐
    - Flowcharts, sequence diagrams, gantt charts
    - Embedded in markdown with ```mermaid blocks
    - Essential for technical presentations
    - Plugin: `rehype-mermaid`
 
-3. **More Animations & Transitions** ⭐⭐⭐⭐
+4. **More Animations & Transitions** ⭐⭐⭐⭐
    - Additional fragment animations (rotate, bounce, flip)
    - Slide transitions (fade, zoom, cube, page)
    - Per-slide transition control
    - Staggered animations for lists
 
-4. **Enhanced Media Embedding** ⭐⭐⭐
+5. **Enhanced Media Embedding** ⭐⭐⭐
    - Video embeds (YouTube, Vimeo, local)
    - Audio support
    - iframes for interactive content

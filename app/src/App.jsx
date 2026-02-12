@@ -119,35 +119,44 @@ export default function App() {
     const mdParam = urlParams.get('md');
     const testMode = urlParams.get('test');
 
-    // Load comprehensive test if ?test=comprehensive
-    if (testMode === 'comprehensive') {
-      fetch('/src/test-content/comprehensive-example.md')
-        .then(response => response.text())
+    // Load from test-content if ?test=filename
+    if (testMode) {
+      fetch(`/src/test-content/${testMode}.md`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.text();
+        })
         .then(text => {
           setMarkdown(text);
           setIsLoading(false);
         })
         .catch(error => {
-          console.error('Failed to load comprehensive test:', error);
-          setIsLoading(false);
-        });
-    } else if (testMode === 'new-syntax') {
-      fetch('/src/test-content/new-syntax-demo.md')
-        .then(response => response.text())
-        .then(text => {
-          setMarkdown(text);
-          setIsLoading(false);
-        })
-        .catch(error => {
-          console.error('Failed to load new syntax demo:', error);
+          console.error(`Failed to load test content ${testMode}:`, error);
           setIsLoading(false);
         });
     } else if (mdParam) {
-      // In future, fetch markdown from URL
-      // For now, use sample
+      // Load from URL parameter
       setIsLoading(false);
     } else {
-      setIsLoading(false);
+      // Default: Load from /presentations/presentation.md
+      fetch('/presentations/presentation.md')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.text();
+        })
+        .then(text => {
+          setMarkdown(text);
+          setIsLoading(false);
+        })
+        .catch(error => {
+          console.error('Failed to load default presentation:', error);
+          console.log('Falling back to sample markdown');
+          setIsLoading(false);
+        });
     }
   }, []);
 
