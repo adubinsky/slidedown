@@ -14,11 +14,27 @@ Slidedown turns markdown into beautiful presentations.
 
 ---
 
+## What is Markdown?
+
+Markdown is a simple way to format text using plain characters.
+
+**Example:**
+```
+# Heading
+**bold text**
+*italic text*
+- bullet point
+```
+
+Simple, readable, and powerful!
+
+---
+
 ## Basic Slides
 
 Separate slides with three dashes:
 
-```markdown
+```
 # Slide 1
 
 Content here
@@ -38,7 +54,7 @@ More content
 
 Use the `:::` directive:
 
-```markdown
+```
 ::: #667eea
 
 ## Purple Background
@@ -89,7 +105,7 @@ Different symbols = different animations:
 
 Wrap text for +++emphasis+++ and ^^^effects^^^.
 
-```markdown
+```
 This has +++emphasized+++ text
 ```
 
@@ -99,7 +115,7 @@ This has +++emphasized+++ text
 
 Add images with opacity:
 
-```markdown
+```
 ::: https://images.unsplash.com/photo-...
 ::: opacity:0.3
 

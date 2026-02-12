@@ -120,11 +120,11 @@ export default function App() {
 
     // Support both old and new parameter names
     const demoMode = urlParams.get('demo') || urlParams.get('test');
-    const trainingMode = urlParams.get('training') || urlParams.get('tutorial');
+    const tutorialMode = urlParams.get('tutorial');
 
-    // Load from training if ?training=filename (or legacy ?tutorial=)
-    if (trainingMode) {
-      fetch(`/training/${trainingMode}.md`)
+    // Load from tutorials if ?tutorial=filename
+    if (tutorialMode) {
+      fetch(`/tutorials/${tutorialMode}.md`)
         .then(response => {
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -136,7 +136,7 @@ export default function App() {
           setIsLoading(false);
         })
         .catch(error => {
-          console.error(`Failed to load training ${trainingMode}:`, error);
+          console.error(`Failed to load tutorial ${tutorialMode}:`, error);
           setIsLoading(false);
         });
     } else if (demoMode) {

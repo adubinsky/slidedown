@@ -65,18 +65,18 @@ Edit `presentation.md` in your current directory. The dev server will automatica
 - Reload the browser
 - Show your updates instantly
 
-### Try the Demos and Training
+### Try the Demos and Tutorials
 
-Built-in demos and training content are available via CLI or URL:
+Built-in demos and tutorials are available via CLI or URL:
 
-**Training (Learn Slidedown):**
+**Tutorials (Learn Slidedown):**
 ```bash
-slidedown training            # Opens getting-started tutorial
-slidedown training getting-started
+slidedown tutorial            # Opens getting-started tutorial
+slidedown tutorial getting-started
 ```
-Or visit: `http://localhost:5173?training=getting-started`
+Or visit: `http://localhost:5173?tutorial=getting-started`
 
-Interactive training teaching Slidedown basics step-by-step (20+ slides)
+Interactive tutorial teaching Slidedown basics step-by-step (20+ slides)
 
 **Demos (See Features):**
 ```bash
@@ -87,7 +87,7 @@ Or visit:
 - `http://localhost:5173?demo=new-syntax-demo` - New `:::` syntax and symbols
 - `http://localhost:5173?demo=comprehensive` - All features (HTML syntax)
 
-All content lives in `public/demos/` and `public/training/` for easy access.
+All content lives in `public/demos/` and `public/tutorials/` for easy access.
 
 ### Claude/MCP Integration
 
@@ -528,7 +528,7 @@ slidedown/
 │   ├── demos/                    # Demo presentations
 │   │   ├── new-syntax-demo.md   # New syntax showcase
 │   │   └── comprehensive.md     # All features demo
-│   ├── training/                 # Training presentations
+│   ├── tutorials/                # Tutorial presentations
 │   │   └── getting-started.md   # Beginner's guide
 │   └── README.md                 # Public folder documentation
 ├── mcp-server/                   # MCP server for Claude integration
@@ -644,7 +644,7 @@ This creates optimized static files in `app/dist/` ready for deployment.
 slidedown init [filename] [title]    # Create new presentation
 slidedown serve [filename]            # Start dev server
 slidedown demo [name]                 # Open a demo presentation
-slidedown training [name]             # Open training content
+slidedown tutorial [name]             # Open tutorial content
 slidedown build                       # Build for production
 slidedown config [options]            # Create config file
 slidedown help [command]              # Show help
@@ -652,7 +652,7 @@ slidedown help [command]              # Show help
 
 **Examples:**
 ```bash
-slidedown training                    # Open getting-started tutorial
+slidedown tutorial                    # Open getting-started tutorial
 slidedown demo new-syntax-demo        # See new syntax in action
 slidedown serve                       # Serve your own presentation
 ```

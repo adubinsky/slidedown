@@ -10,7 +10,7 @@ New Markdown-Native Syntax Demo
 
 This slide has a purple background using the new syntax:
 
-```markdown
+```
 ::: #667eea
 ```
 
@@ -60,7 +60,7 @@ Perfect for +++emphasizing+++ key concepts!
 
 This slide has a background image with reduced opacity.
 
-```markdown
+```
 ::: https://images.unsplash.com/photo-1506905925346-21bda4d32df4
 ::: opacity:0.3
 ```

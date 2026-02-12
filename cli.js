@@ -324,15 +324,15 @@ Questions? ^^^
 		},
 	},
 
-	training: {
-		description: 'Open a training presentation',
-		usage: 'slidedown training [training-name]',
+	tutorial: {
+		description: 'Open a tutorial presentation',
+		usage: 'slidedown tutorial [tutorial-name]',
 		action: async (args) => {
 			const appDir = path.join(__dirname, 'app');
-			const trainingName = args[0] || 'getting-started';
+			const tutorialName = args[0] || 'getting-started';
 
-			console.log(`📚 Opening training: ${trainingName}`);
-			console.log(`📺 URL: http://localhost:5173?training=${trainingName}`);
+			console.log(`📚 Opening tutorial: ${tutorialName}`);
+			console.log(`📺 URL: http://localhost:5173?tutorial=${tutorialName}`);
 			console.log(`\n⌨️  Press Ctrl+C to stop\n`);
 
 			const child = spawn('npm', ['run', 'dev'], {

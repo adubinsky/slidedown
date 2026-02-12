@@ -1,6 +1,6 @@
 # Public Folder
 
-This folder contains all user-facing presentations, demos, and training content.
+This folder contains all user-facing presentations, demos, and tutorials.
 
 ## Structure
 
@@ -11,7 +11,7 @@ public/
 ├── demos/                   # Demo presentations
 │   ├── new-syntax-demo.md  # Showcases new syntax
 │   └── comprehensive.md    # All features demo
-└── training/                # Training presentations
+└── tutorials/               # Tutorial presentations
     └── getting-started.md  # Introduction to Slidedown
 ```
 
@@ -43,18 +43,18 @@ slidedown demo comprehensive
 
 These demonstrate Slidedown features and syntax.
 
-### Training (`training/`)
+### Tutorials (`tutorials/`)
 
-Access with `?training=` parameter or CLI command:
+Access with `?tutorial=` parameter or CLI command:
 
 ```
-http://localhost:5173?training=getting-started
+http://localhost:5173?tutorial=getting-started
 ```
 
 Or use the CLI:
 ```bash
-slidedown training getting-started
-slidedown training  # Defaults to getting-started
+slidedown tutorial getting-started
+slidedown tutorial  # Defaults to getting-started
 ```
 
 Step-by-step learning content for mastering Slidedown.
@@ -80,13 +80,13 @@ open http://localhost:5173?demo=my-demo
 ```bash
 slidedown serve            # Serve your presentation
 slidedown demo [name]      # Open a demo
-slidedown training [name]  # Open training content
+slidedown tutorial [name]  # Open tutorial content
 ```
 
 ## File Organization
 
 **Why this structure?**
 - ✅ Easy to find - everything in one `public/` folder
-- ✅ Clear separation - presentations / demos / training
+- ✅ Clear separation - presentations / demos / tutorials
 - ✅ Simple to spin up - CLI commands for everything
 - ✅ Clean architecture - user data separate from app code
